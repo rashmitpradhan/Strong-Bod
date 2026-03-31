@@ -1,955 +1,1056 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MBS Tracker">
 <meta name="description" content="Mom.Bod.Strong — 9-week postpartum fitness tracker">
-<meta name="theme-color" content="#6B2737" id="meta-theme">
 <title>Mom.Bod.Strong</title>
+
+<!-- ╔══════════════════════════════════════════════╗
+     ║  GITHUB PAGES: Add your *.github.io domain  ║
+     ║  to Firebase Console → Auth →               ║
+     ║  Authorized domains before deploying.       ║
+     ╚══════════════════════════════════════════════╝ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
 <style>
+/* ═══════════════════════════════════════════════════════
+   DESIGN TOKENS — Nike NTC–inspired
+   Primary: Barlow Condensed · Accent: #FF2D55 (energy red)
+═══════════════════════════════════════════════════════ */
 :root {
-  --md-sys-color-primary:              #8B2040;
-  --md-sys-color-on-primary:           #FFFFFF;
-  --md-sys-color-primary-container:    #FFDADF;
-  --md-sys-color-on-primary-container: #3A0016;
-  --md-sys-color-secondary:            #75565B;
-  --md-sys-color-on-secondary:         #FFFFFF;
-  --md-sys-color-secondary-container:  #FFDADF;
-  --md-sys-color-on-secondary-container: #2C1519;
-  --md-sys-color-tertiary:             #7C5635;
-  --md-sys-color-on-tertiary:          #FFFFFF;
-  --md-sys-color-tertiary-container:   #FFDCBE;
-  --md-sys-color-on-tertiary-container:#2E1500;
-  --md-sys-color-error:                #BA1A1A;
-  --md-sys-color-on-error:             #FFFFFF;
-  --md-sys-color-error-container:      #FFDAD6;
-  --md-sys-color-on-error-container:   #410002;
-  --md-sys-color-background:           #FFF8F7;
-  --md-sys-color-on-background:        #21191A;
-  --md-sys-color-surface:              #FFF8F7;
-  --md-sys-color-on-surface:           #21191A;
-  --md-sys-color-surface-variant:      #F4DDDF;
-  --md-sys-color-on-surface-variant:   #524344;
-  --md-sys-color-outline:              #857373;
-  --md-sys-color-outline-variant:      #D7C1C2;
-  --md-sys-color-inverse-surface:      #372E2F;
-  --md-sys-color-inverse-on-surface:   #FBEEEE;
-  --md-sys-color-inverse-primary:      #FFB2BC;
-  --md-sys-color-surface-container-lowest:  #FFFFFF;
-  --md-sys-color-surface-container-low:     #FFF0F1;
-  --md-sys-color-surface-container:         #F8EAEB;
-  --md-sys-color-surface-container-high:    #F2E4E5;
-  --md-sys-color-surface-container-highest: #ECDEDE;
-  --md-sys-color-scrim: #000000;
-  --md-elevation-shadow: rgba(0,0,0,.08);
-  --md-elevation-shadow-md: rgba(0,0,0,.14);
-  --md-state-primary-opacity-hover:   .08;
-  --md-state-primary-opacity-press:   .12;
-  --md-state-primary-opacity-focus:   .12;
-  --md-shape-none:        0px;
-  --md-shape-extra-small: 4px;
-  --md-shape-small:       8px;
-  --md-shape-medium:      12px;
-  --md-shape-large:       16px;
-  --md-shape-extra-large: 28px;
-  --md-shape-full:        9999px;
-  --md-type-display-large:   400 57px/64px 'Google Sans Display',Nunito,sans-serif;
-  --md-type-headline-large:  400 32px/40px 'Google Sans Display',Nunito,sans-serif;
-  --md-type-headline-medium: 400 28px/36px 'Google Sans Display',Nunito,sans-serif;
-  --md-type-headline-small:  400 24px/32px 'Google Sans',Nunito,sans-serif;
-  --md-type-title-large:     400 22px/28px 'Google Sans',Nunito,sans-serif;
-  --md-type-title-medium:    500 16px/24px 'Google Sans',Nunito,sans-serif;
-  --md-type-title-small:     500 14px/20px 'Google Sans',Nunito,sans-serif;
-  --md-type-label-large:     500 14px/20px 'Google Sans',Nunito,sans-serif;
-  --md-type-label-medium:    500 12px/16px 'Google Sans',Nunito,sans-serif;
-  --md-type-label-small:     500 11px/16px 'Google Sans',Nunito,sans-serif;
-  --md-type-body-large:      400 16px/24px 'Roboto',Nunito,sans-serif;
-  --md-type-body-medium:     400 14px/20px 'Roboto',Nunito,sans-serif;
-  --md-type-body-small:      400 12px/16px 'Roboto',Nunito,sans-serif;
+  --bg:          #0A0A0A;
+  --bg-1:        #111111;
+  --bg-2:        #1A1A1A;
+  --bg-3:        #222222;
+  --bg-4:        #2E2E2E;
+  --border:      rgba(255,255,255,.08);
+  --border-strong:rgba(255,255,255,.15);
+  --accent:      #FF2D55;
+  --accent-dim:  rgba(255,45,85,.18);
+  --accent-dark: #CC1F3F;
+  --on-accent:   #FFFFFF;
+  --success:     #32D74B;
+  --warn:        #FF9F0A;
+  --error:       #FF453A;
+  --text-1:      #FFFFFF;
+  --text-2:      #AEAEB2;
+  --text-3:      #636366;
+  --text-4:      #3A3A3C;
+  --overlay:     rgba(0,0,0,.62);
+  --scrim:       rgba(0,0,0,.75);
+  --shadow:      0 4px 24px rgba(0,0,0,.6);
+  --shadow-sm:   0 2px 8px rgba(0,0,0,.4);
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 999px;
+  --nav-h: 72px;
+}
+html[data-theme="light"] {
+  --bg:          #F2F2F7;
+  --bg-1:        #FFFFFF;
+  --bg-2:        #F2F2F7;
+  --bg-3:        #E5E5EA;
+  --bg-4:        #D1D1D6;
+  --border:      rgba(0,0,0,.08);
+  --border-strong:rgba(0,0,0,.15);
+  --accent:      #E8192C;
+  --accent-dim:  rgba(232,25,44,.12);
+  --accent-dark: #BF1425;
+  --overlay:     rgba(0,0,0,.45);
+  --scrim:       rgba(0,0,0,.55);
+  --shadow:      0 4px 24px rgba(0,0,0,.12);
+  --shadow-sm:   0 2px 8px rgba(0,0,0,.08);
+  --text-1:      #0A0A0A;
+  --text-2:      #48484A;
+  --text-3:      #8E8E93;
+  --text-4:      #C7C7CC;
+  --success:     #34C759;
+  --warn:        #FF9500;
+  --error:       #FF3B30;
 }
 
-html[data-theme="dark"] {
-  --md-sys-color-primary:              #FFB2BC;
-  --md-sys-color-on-primary:           #5C0020;
-  --md-sys-color-primary-container:    #6B2737;
-  --md-sys-color-on-primary-container: #FFDADF;
-  --md-sys-color-secondary:            #E6BDBE;
-  --md-sys-color-on-secondary:         #43292C;
-  --md-sys-color-secondary-container:  #5C3F42;
-  --md-sys-color-on-secondary-container:#FFDADF;
-  --md-sys-color-tertiary:             #EFBA87;
-  --md-sys-color-on-tertiary:          #482A09;
-  --md-sys-color-tertiary-container:   #623E21;
-  --md-sys-color-on-tertiary-container:#FFDCBE;
-  --md-sys-color-error:                #FFB4AB;
-  --md-sys-color-on-error:             #690005;
-  --md-sys-color-error-container:      #93000A;
-  --md-sys-color-on-error-container:   #FFDAD6;
-  --md-sys-color-background:           #21191A;
-  --md-sys-color-on-background:        #ECDEDE;
-  --md-sys-color-surface:              #21191A;
-  --md-sys-color-on-surface:           #ECDEDE;
-  --md-sys-color-surface-variant:      #524344;
-  --md-sys-color-on-surface-variant:   #D7C1C2;
-  --md-sys-color-outline:              #A08C8D;
-  --md-sys-color-outline-variant:      #524344;
-  --md-sys-color-inverse-surface:      #ECDEDE;
-  --md-sys-color-inverse-on-surface:   #372E2F;
-  --md-sys-color-inverse-primary:      #8B2040;
-  --md-sys-color-surface-container-lowest:  #1A1314;
-  --md-sys-color-surface-container-low:     #21191A;
-  --md-sys-color-surface-container:         #261D1E;
-  --md-sys-color-surface-container-high:    #312829;
-  --md-sys-color-surface-container-highest: #3C3233;
-  --md-elevation-shadow: rgba(0,0,0,.3);
-  --md-elevation-shadow-md: rgba(0,0,0,.45);
+/* ─── Reset ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;-webkit-tap-highlight-color:transparent;scroll-behavior:smooth}
+body{
+  font-family:'Barlow',system-ui,sans-serif;
+  background:var(--bg);color:var(--text-1);
+  min-height:100vh;min-height:100dvh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
+button,input,select{font-family:inherit;border:none;outline:none;background:none;cursor:pointer}
+a{color:inherit;text-decoration:none}
+img{display:block;object-fit:cover}
 
-*,*::before,*::after { box-sizing:border-box;margin:0;padding:0 }
-html { scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;height:100% }
-body {
-  font: var(--md-type-body-large);
-  background: var(--md-sys-color-background);
-  color: var(--md-sys-color-on-background);
-  min-height: 100vh; min-height: 100dvh;
-  overflow-x: hidden;
-  transition: background .3s, color .3s;
-}
-button,input,select { font-family:inherit;border:none;outline:none;background:none;cursor:pointer }
-a { color:inherit;text-decoration:none }
-img { display:block;max-width:100% }
-.material-icons-round { font-size:24px;line-height:1;vertical-align:middle;user-select:none }
-
-.md-ripple { position:relative;overflow:hidden }
-.md-ripple::after {
+/* ─── Ripple state layer ─── */
+.rpl{position:relative;overflow:hidden}
+.rpl::after{
   content:'';position:absolute;inset:0;border-radius:inherit;
   background:currentColor;opacity:0;transition:opacity .15s;pointer-events:none;
 }
-.md-ripple:hover::after  { opacity:.08 }
-.md-ripple:focus-visible::after { opacity:.12 }
-.md-ripple:active::after { opacity:.16 }
+.rpl:hover::after{opacity:.07}
+.rpl:active::after{opacity:.15}
 
-.screen { display:none;width:100%;min-height:100dvh;flex-direction:column }
-.screen.active { display:flex }
+/* ─── Screens ─── */
+.screen{display:none;width:100%;min-height:100dvh;flex-direction:column}
+.screen.active{display:flex}
 
-#screen-splash {
-  background: linear-gradient(160deg,
-    var(--md-sys-color-primary-container) 0%,
-    var(--md-sys-color-tertiary-container) 100%);
+/* ═══════════════════════════════════════════════════════
+   SPLASH
+═══════════════════════════════════════════════════════ */
+#s-splash{
+  background:#0A0A0A;
   align-items:center;justify-content:center;gap:2rem;
 }
-.splash-mark {
-  width:96px;height:96px;border-radius:28px;
-  background:var(--md-sys-color-primary);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 8px 24px rgba(139,32,64,.35);
-  animation:splashPop .5s cubic-bezier(.34,1.56,.64,1) both;
+.splash-logo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:3rem;
+  letter-spacing:-.02em;text-transform:uppercase;
+  color:#FFF;
 }
-.splash-mark .material-icons-round { font-size:52px;color:var(--md-sys-color-on-primary) }
-@keyframes splashPop {
-  from { opacity:0;transform:scale(.5) }
-  to   { opacity:1;transform:scale(1) }
+.splash-logo span{color:var(--accent)}
+.spinner{
+  width:36px;height:36px;border-radius:50%;
+  border:3px solid rgba(255,255,255,.12);
+  border-top-color:var(--accent);
+  animation:spin .7s linear infinite;
 }
-.splash-title {
-  font: var(--md-type-headline-medium);
-  color: var(--md-sys-color-on-primary-container);
-  text-align:center;
-}
-.md-progress-indicator {
-  width:48px;height:48px;border-radius:50%;
-  border:4px solid var(--md-sys-color-surface-variant);
-  border-top-color:var(--md-sys-color-primary);
-  animation: spin .7s linear infinite;
-}
-@keyframes spin { to { transform:rotate(360deg) } }
+@keyframes spin{to{transform:rotate(360deg)}}
 
-#screen-auth {
-  background: var(--md-sys-color-background);
-  overflow-y:auto;
+/* ═══════════════════════════════════════════════════════
+   AUTH
+═══════════════════════════════════════════════════════ */
+#s-auth{overflow-y:auto;background:#000}
+.auth-bg{
+  position:relative;height:52vh;min-height:260px;flex-shrink:0;
+  background:#111 url('https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&q=80&auto=format&fit=crop') center/cover no-repeat;
 }
-.auth-scroll {
-  flex:1;display:flex;flex-direction:column;
-  max-width:480px;width:100%;margin:0 auto;
-  padding:env(safe-area-inset-top,0) 0 0;
+.auth-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,.25) 0%,rgba(0,0,0,.92) 100%);
 }
-.auth-hero {
-  flex:1;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;padding:3.5rem 2rem 2rem;text-align:center;gap:1rem;
+.auth-bg-copy{
+  position:absolute;bottom:2rem;left:1.75rem;right:1.75rem;z-index:1;
 }
-.auth-hero-icon {
-  width:80px;height:80px;border-radius:24px;
-  background:var(--md-sys-color-primary-container);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:.5rem;
+.auth-eyebrow{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:600;font-size:.8rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;
 }
-.auth-hero-icon .material-icons-round {
-  font-size:44px;color:var(--md-sys-color-primary);
+.auth-headline{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:3.2rem;line-height:.95;
+  letter-spacing:-.01em;text-transform:uppercase;color:#FFF;
 }
-.auth-display-title {
-  font: var(--md-type-headline-large);
-  color:var(--md-sys-color-on-background);
+.auth-sub{font-size:.9rem;color:rgba(255,255,255,.65);margin-top:.75rem;line-height:1.5}
+.auth-sheet{
+  background:var(--bg-1);
+  padding:2rem 1.5rem calc(2rem + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;gap:.875rem;flex:1;
 }
-.auth-display-title span { color:var(--md-sys-color-primary) }
-.auth-hero p {
-  font: var(--md-type-body-large);
-  color:var(--md-sys-color-on-surface-variant);
-  max-width:300px;
-}
-.auth-sheet {
-  background:var(--md-sys-color-surface-container-low);
-  border-radius:var(--md-shape-extra-large) var(--md-shape-extra-large) 0 0;
-  padding:2rem 1.5rem max(2rem, env(safe-area-inset-bottom,2rem));
-  box-shadow:0 -2px 16px var(--md-elevation-shadow-md);
-  display:flex;flex-direction:column;gap:.875rem;
-}
-.auth-sheet-title {
-  font: var(--md-type-title-large);
-  color:var(--md-sys-color-on-surface);
-  text-align:center;margin-bottom:.25rem;
+.auth-sheet-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:1.3rem;letter-spacing:.01em;
+  text-transform:uppercase;color:var(--text-1);margin-bottom:.25rem;
 }
 
-.md-btn {
+/* ─── Buttons ─── */
+.btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  padding:0 1.5rem;height:40px;border-radius:var(--md-shape-full);
-  font: var(--md-type-label-large);letter-spacing:.01em;
+  border-radius:var(--r-sm);padding:0 1.25rem;height:48px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:1rem;letter-spacing:.04em;text-transform:uppercase;
   cursor:pointer;position:relative;overflow:hidden;
-  transition:box-shadow .2s,background .2s;white-space:nowrap;
+  transition:background .2s,transform .1s,box-shadow .2s;
+  white-space:nowrap;flex-shrink:0;
 }
-.md-btn .material-icons-round { font-size:18px }
-.md-btn::after {
+.btn::after{
   content:'';position:absolute;inset:0;border-radius:inherit;
   background:currentColor;opacity:0;transition:opacity .15s;pointer-events:none;
 }
-.md-btn:hover::after  { opacity:.08 }
-.md-btn:active::after { opacity:.16 }
-.md-btn:disabled { opacity:.38;cursor:not-allowed }
-.md-btn-filled {
-  background:var(--md-sys-color-primary);
-  color:var(--md-sys-color-on-primary);
-  box-shadow:0 1px 3px var(--md-elevation-shadow);
+.btn:hover::after{opacity:.1}
+.btn:active{transform:scale(.98)}
+.btn:active::after{opacity:.2}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.btn-primary{background:var(--accent);color:#FFF}
+.btn-primary:hover{box-shadow:0 4px 16px rgba(255,45,85,.4)}
+.btn-ghost{background:transparent;color:var(--text-1);border:1.5px solid var(--border-strong)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-subtle{background:var(--bg-3);color:var(--text-2)}
+.btn-danger{background:transparent;color:var(--error);border:1.5px solid rgba(255,69,58,.3)}
+.btn-text{background:transparent;color:var(--text-2);padding:0 .75rem;font-size:.9rem;font-weight:500;text-transform:none;letter-spacing:0}
+.btn-full{width:100%}
+.btn-lg{height:56px;font-size:1.1rem}
+.btn .material-icons-round{font-size:18px}
+.btn-google{
+  background:#FFF;color:#1F1F1F;border:1.5px solid #DADCE0;
+  font-family:'Barlow Condensed',sans-serif;
 }
-.md-btn-filled:hover { box-shadow:0 2px 8px var(--md-elevation-shadow-md) }
-.md-btn-tonal {
-  background:var(--md-sys-color-secondary-container);
-  color:var(--md-sys-color-on-secondary-container);
-}
-.md-btn-outlined {
-  background:transparent;color:var(--md-sys-color-primary);
-  border:1px solid var(--md-sys-color-outline);
-}
-.md-btn-text {
-  background:transparent;color:var(--md-sys-color-primary);padding:0 .75rem;
-}
-.md-btn-full { width:100%;height:48px;font-size:15px }
+.btn-google:hover{box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.btn-google::after{background:#000}
+.google-icon{width:20px;height:20px;flex-shrink:0}
 
-.md-field {
-  position:relative;
-  margin:.25rem 0;
-}
-.md-field-input {
+/* ─── Text fields ─── */
+.field{position:relative;margin:.25rem 0}
+.field-input{
   width:100%;
-  background:var(--md-sys-color-surface-container);
-  border:none;
-  border-bottom:1px solid var(--md-sys-color-outline);
-  border-radius:var(--md-shape-small) var(--md-shape-small) 0 0;
+  background:var(--bg-2);
+  border:1.5px solid var(--border);
+  border-radius:var(--r-sm);
   padding:1.125rem 1rem .625rem;
-  font: var(--md-type-body-large);
-  color:var(--md-sys-color-on-surface);
-  transition:border-color .2s,background .2s;
+  font-family:'Barlow',sans-serif;font-size:.95rem;
+  color:var(--text-1);transition:border-color .2s,background .2s;
 }
-.md-field-input:focus {
-  border-bottom:2px solid var(--md-sys-color-primary);
-  background:var(--md-sys-color-surface-container-high);
-  outline:none;
+.field-input:focus{
+  border-color:var(--accent);background:var(--bg-3);outline:none;
 }
-.md-field-label {
+.field-input[type="date"]{cursor:pointer;color-scheme:dark}
+html[data-theme="light"] .field-input[type="date"]{color-scheme:light}
+.field-label{
   position:absolute;left:1rem;top:1rem;
-  font: var(--md-type-body-large);
-  color:var(--md-sys-color-on-surface-variant);
-  pointer-events:none;transition:all .2s;transform-origin:left top;
+  font:400 .92rem/1 'Barlow',sans-serif;
+  color:var(--text-3);pointer-events:none;transition:all .2s;transform-origin:left top;
 }
-.md-field-input:focus   ~ .md-field-label,
-.md-field-input:not(:placeholder-shown) ~ .md-field-label {
-  transform: translateY(-.65rem) scale(.75);
-  color:var(--md-sys-color-primary);
+.field-input:focus~.field-label,
+.field-input:not(:placeholder-shown)~.field-label{
+  transform:translateY(-.6rem) scale(.72);
+  color:var(--accent);
 }
-.md-field-trail {
-  position:absolute;right:.75rem;top:50%;transform:translateY(-50%);
-  color:var(--md-sys-color-on-surface-variant);cursor:pointer;
+.field-trail{
+  position:absolute;right:.875rem;top:50%;transform:translateY(-50%);
+  color:var(--text-3);cursor:pointer;
 }
-.md-field-error {
-  font: var(--md-type-body-small);
-  color:var(--md-sys-color-error);
-  padding:.25rem 1rem 0;
+.field-trail .material-icons-round{font-size:20px}
+.field-err{font-size:.78rem;color:var(--error);padding:.25rem .25rem 0;line-height:1.4}
+.divider{
+  display:flex;align-items:center;gap:.875rem;
+  font:500 .72rem 'Barlow Condensed',sans-serif;
+  color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;
 }
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
-#screen-onboard {
-  background:var(--md-sys-color-background);
-  overflow-y:auto;
-}
-.onboard-container {
+/* ═══════════════════════════════════════════════════════
+   ONBOARDING
+═══════════════════════════════════════════════════════ */
+#s-onboard{overflow-y:auto;background:var(--bg)}
+.ob-wrap{
   flex:1;display:flex;flex-direction:column;
   max-width:520px;width:100%;margin:0 auto;
-  padding:env(safe-area-inset-top,1rem) 1.5rem max(2rem,env(safe-area-inset-bottom));
+  padding:env(safe-area-inset-top,.5rem) 1.5rem calc(2.5rem + env(safe-area-inset-bottom));
 }
-.onboard-progress-bar {
-  height:4px;background:var(--md-sys-color-surface-variant);
-  border-radius:2px;overflow:hidden;margin:1.5rem 0 2.5rem;
+/* Progress bar */
+.ob-bar{
+  display:flex;gap:.375rem;padding:1.5rem 0 2.5rem;
 }
-.onboard-progress-fill {
-  height:100%;background:var(--md-sys-color-primary);
-  border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1);
+.ob-bar-seg{
+  flex:1;height:3px;border-radius:2px;
+  background:var(--bg-3);transition:background .3s;
 }
-.onboard-step { display:none }
-.onboard-step.active { display:flex;flex-direction:column;animation:stepIn .35s ease }
-@keyframes stepIn {
-  from { opacity:0;transform:translateX(24px) }
-  to   { opacity:1;transform:translateX(0) }
+.ob-bar-seg.done{background:var(--accent)}
+.ob-step{display:none;flex-direction:column;flex:1}
+.ob-step.active{display:flex;animation:slideIn .3s ease}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.ob-img{
+  width:100%;aspect-ratio:16/7;border-radius:var(--r-lg);
+  object-fit:cover;margin-bottom:2rem;
 }
-.onboard-step-icon {
-  width:64px;height:64px;border-radius:20px;
-  background:var(--md-sys-color-primary-container);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:1.5rem;
+.ob-tag{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.5rem;
 }
-.onboard-step-icon .material-icons-round { font-size:34px;color:var(--md-sys-color-primary) }
-.onboard-step h2 {
-  font: var(--md-type-headline-small);
-  color:var(--md-sys-color-on-surface);
-  margin-bottom:.75rem;
+.ob-h{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:2.2rem;line-height:1;
+  text-transform:uppercase;color:var(--text-1);margin-bottom:.875rem;
 }
-.onboard-step p {
-  font: var(--md-type-body-large);
-  color:var(--md-sys-color-on-surface-variant);
-  line-height:1.7;margin-bottom:2rem;
+.ob-p{
+  font-size:.95rem;color:var(--text-2);line-height:1.65;margin-bottom:2rem;
 }
-.onboard-nav { display:flex;gap:.75rem;margin-top:auto;padding-top:2rem }
-.feature-list { display:flex;flex-direction:column;gap:.625rem;margin-bottom:2rem }
-.feature-row {
-  display:flex;align-items:center;gap:1rem;
-  background:var(--md-sys-color-surface-container);
-  border-radius:var(--md-shape-large);padding:1rem 1.25rem;
+.ob-hint{
+  font-size:.82rem;color:var(--text-3);
+  background:var(--bg-2);border-radius:var(--r-sm);
+  padding:.75rem 1rem;margin-bottom:1.5rem;line-height:1.5;
 }
-.feature-row .material-icons-round { color:var(--md-sys-color-primary);flex-shrink:0 }
-.feature-row span:last-child {
-  font: var(--md-type-body-medium);
-  color:var(--md-sys-color-on-surface);
+.ob-hint strong{color:var(--text-2)}
+.ob-nav{display:flex;gap:.75rem;margin-top:auto;padding-top:1.5rem}
+/* Start card in onboarding */
+.ob-start-card{
+  border-radius:var(--r-lg);overflow:hidden;margin-bottom:1.5rem;position:relative;
 }
-
-.start-card {
-  background:var(--md-sys-color-primary-container);
-  border-radius:var(--md-shape-extra-large);
-  padding:2rem 1.5rem;text-align:center;margin-bottom:1.5rem;
-  position:relative;overflow:hidden;
+.ob-start-img{
+  width:100%;height:160px;object-fit:cover;
 }
-.start-card-emoji { font-size:3.5rem;display:block;margin-bottom:1rem;line-height:1 }
-.start-card h3 {
-  font: var(--md-type-title-large);
-  color:var(--md-sys-color-on-primary-container);
-  margin-bottom:.5rem;
+.ob-start-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.2) 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:1.25rem;
 }
-.start-card p {
-  font: var(--md-type-body-medium);
-  color:var(--md-sys-color-on-primary-container);
-  opacity:.8;margin-bottom:0;
+.ob-start-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:1.6rem;text-transform:uppercase;color:#FFF;line-height:1;
 }
-.date-pill {
+.ob-start-sub{font-size:.82rem;color:rgba(255,255,255,.65);margin-top:.375rem}
+.ob-date-pill{
   display:inline-flex;align-items:center;gap:.35rem;
-  background:var(--md-sys-color-primary);color:var(--md-sys-color-on-primary);
-  border-radius:var(--md-shape-full);padding:.35rem 1rem;
-  font: var(--md-type-label-large);margin-top:1rem;
+  background:var(--accent);color:#FFF;
+  border-radius:var(--r-full);padding:.3rem .875rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.82rem;letter-spacing:.04em;
+  margin-top:.875rem;
 }
+.ob-date-pill .material-icons-round{font-size:15px}
+/* Feature rows */
+.feature-list{display:flex;flex-direction:column;gap:.625rem;margin-bottom:2rem}
+.feature-row{
+  display:flex;align-items:center;gap:1rem;
+  background:var(--bg-1);border-radius:var(--r-md);padding:.875rem 1rem;
+}
+.feature-row .material-icons-round{color:var(--accent);font-size:20px;flex-shrink:0}
+.feature-row span:last-child{font-size:.9rem;color:var(--text-2)}
 
-#screen-app {
-  background:var(--md-sys-color-background);
-  padding-bottom:80px;
-}
+/* ═══════════════════════════════════════════════════════
+   MAIN APP
+═══════════════════════════════════════════════════════ */
+#s-app{background:var(--bg);padding-bottom:var(--nav-h)}
 
-.top-app-bar {
-  position:sticky;top:0;z-index:50;
-  background:var(--md-sys-color-surface-container);
-  border-bottom:1px solid var(--md-sys-color-outline-variant);
-  display:flex;align-items:center;gap:.5rem;
-  padding:.75rem 1rem;
-  padding-top:calc(.75rem + env(safe-area-inset-top, 0px));
-  min-height:64px;
+/* ─── Top bar ─── */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  background:var(--bg);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:.625rem 1rem;
+  padding-top:calc(.625rem + env(safe-area-inset-top,0px));
+  gap:.5rem;
 }
-.top-app-bar-title {
+.topbar-logo{
   flex:1;
-  font: var(--md-type-title-large);
-  color:var(--md-sys-color-on-surface);
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:1.35rem;letter-spacing:.02em;text-transform:uppercase;
+  color:var(--text-1);
 }
-.top-app-bar-title small {
-  display:block;
-  font: var(--md-type-label-medium);
-  color:var(--md-sys-color-on-surface-variant);
-  margin-top:1px;
-}
-.md-icon-btn {
-  width:48px;height:48px;border-radius:var(--md-shape-full);
+.topbar-logo span{color:var(--accent)}
+.topbar-right{display:flex;align-items:center;gap:.25rem}
+.icon-btn{
+  width:44px;height:44px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  color:var(--md-sys-color-on-surface-variant);
-  cursor:pointer;position:relative;overflow:hidden;
-  flex-shrink:0;
+  color:var(--text-2);cursor:pointer;position:relative;overflow:hidden;flex-shrink:0;
 }
-.md-icon-btn::after {
+.icon-btn::after{
   content:'';position:absolute;inset:0;border-radius:inherit;
   background:currentColor;opacity:0;transition:.15s;pointer-events:none;
 }
-.sync-spinner {
-  width:20px;height:20px;border-radius:50%;border:2.5px solid;
-  border-color:var(--md-sys-color-outline-variant) var(--md-sys-color-outline-variant)
-    var(--md-sys-color-primary) var(--md-sys-color-primary);
-  animation:spin .6s linear infinite;display:none;
+.icon-btn:hover::after{opacity:.08}
+.icon-btn:active::after{opacity:.18}
+.icon-btn .material-icons-round{font-size:22px}
+/* Sync spinner */
+.sync-ring{
+  width:20px;height:20px;border-radius:50%;border:2.5px solid var(--bg-4);
+  border-top-color:var(--accent);animation:spin .6s linear infinite;display:none;
 }
-#sync-btn.syncing .material-icons-round { display:none }
-#sync-btn.syncing .sync-spinner { display:block }
-.avatar-chip {
-  height:36px;border-radius:var(--md-shape-full);
+#sync-btn.syncing .material-icons-round{display:none}
+#sync-btn.syncing .sync-ring{display:block}
+/* Avatar chip */
+.av-chip{
+  height:36px;border-radius:var(--r-full);
   display:flex;align-items:center;gap:.5rem;
-  background:var(--md-sys-color-surface-container-high);
+  background:var(--bg-2);border:1px solid var(--border);
   padding:0 .75rem 0 .25rem;cursor:pointer;flex-shrink:0;
-  border:1px solid var(--md-sys-color-outline-variant);
   position:relative;overflow:hidden;
 }
-.avatar-circle {
-  width:28px;height:28px;border-radius:50%;
-  background:var(--md-sys-color-primary);
-  color:var(--md-sys-color-on-primary);
-  display:flex;align-items:center;justify-content:center;
-  font: var(--md-type-label-medium);overflow:hidden;flex-shrink:0;
+.av-chip::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:var(--text-1);opacity:0;transition:.15s;pointer-events:none;
 }
-.avatar-name { font: var(--md-type-label-large);color:var(--md-sys-color-on-surface);max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap }
+.av-chip:hover::after{opacity:.06}
+.av-circle{
+  width:28px;height:28px;border-radius:50%;overflow:hidden;
+  background:var(--accent);color:#FFF;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.75rem;
+  flex-shrink:0;
+}
+.av-circle img{width:100%;height:100%}
+.av-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.85rem;letter-spacing:.02em;color:var(--text-1);
+  max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
 
-.md-nav-bar {
-  position:fixed;bottom:0;left:0;right:0;z-index:50;
-  background:var(--md-sys-color-surface-container);
-  border-top:1px solid var(--md-sys-color-outline-variant);
+/* ─── Bottom nav ─── */
+.nav-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:40;
+  background:var(--bg-1);border-top:1px solid var(--border);
   display:flex;
-  padding:0 0 max(1rem,env(safe-area-inset-bottom));
+  padding:0 0 max(.875rem,env(safe-area-inset-bottom,.875rem));
+  height:var(--nav-h);
 }
-.md-nav-item {
+.nav-item{
   flex:1;display:flex;flex-direction:column;align-items:center;
-  padding:.75rem 0 .25rem;gap:.25rem;cursor:pointer;
-}
-.md-nav-indicator {
-  display:flex;align-items:center;justify-content:center;
-  width:64px;height:32px;border-radius:var(--md-shape-full);
-  position:relative;overflow:hidden;transition:background .2s;
-}
-.md-nav-item.active .md-nav-indicator {
-  background:var(--md-sys-color-secondary-container);
-}
-.md-nav-item .material-icons-round {
-  font-size:24px;color:var(--md-sys-color-on-surface-variant);
+  justify-content:center;gap:.25rem;cursor:pointer;
+  position:relative;overflow:hidden;
   transition:all .2s;
 }
-.md-nav-item.active .material-icons-round { color:var(--md-sys-color-on-secondary-container) }
-.md-nav-label {
-  font: var(--md-type-label-medium);
-  color:var(--md-sys-color-on-surface-variant);
+.nav-item::after{
+  content:'';position:absolute;inset:0;
+  background:var(--text-1);opacity:0;transition:.15s;pointer-events:none;
 }
-.md-nav-item.active .md-nav-label { color:var(--md-sys-color-on-secondary-container) }
+.nav-item:hover::after{opacity:.05}
+.nav-item .material-icons-round{font-size:24px;color:var(--text-3);transition:color .2s}
+.nav-item .nav-lbl{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-3);transition:color .2s;
+}
+.nav-item.active .material-icons-round{color:var(--accent)}
+.nav-item.active .nav-lbl{color:var(--accent)}
+/* Active top indicator */
+.nav-item::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:0;height:2px;background:var(--accent);border-radius:0 0 2px 2px;
+  transition:width .25s cubic-bezier(.4,0,.2,1);
+}
+.nav-item.active::before{width:28px}
 
-.tab-panel { display:none }
-.tab-panel.active { display:block;animation:fadeUp .28s ease }
-@keyframes fadeUp {
-  from { opacity:0;transform:translateY(10px) }
-  to   { opacity:1;transform:translateY(0) }
-}
+/* ─── Tab panels ─── */
+.tab{display:none}
+.tab.active{display:block;animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-.home-content { padding:0 0 1.5rem }
-.week-label-row {
-  display:flex;align-items:center;justify-content:space-between;
-  padding:.75rem 1rem .25rem;
-}
-.week-label {
-  font: var(--md-type-label-large);
-  color:var(--md-sys-color-on-surface-variant);
-  text-transform:uppercase;letter-spacing:.08em;
-}
-.chip-scroll {
-  display:flex;gap:.5rem;padding:.5rem 1rem .875rem;
-  overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
-}
-.chip-scroll::-webkit-scrollbar { display:none }
-.day-chip {
-  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;
-  border-radius:var(--md-shape-full);padding:.5rem .875rem;
-  border:1px solid var(--md-sys-color-outline-variant);
-  background:var(--md-sys-color-surface-container-lowest);
-  cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
-  min-width:52px;
-}
-.day-chip-num {
-  font: var(--md-type-title-small);
-  color:var(--md-sys-color-on-surface);
-}
-.day-chip-icon {
-  font: var(--md-type-label-small);
-  color:var(--md-sys-color-on-surface-variant);
-}
-.day-chip.is-rest   { background:var(--md-sys-color-surface-container);border-color:transparent }
-.day-chip.is-done   { background:var(--md-sys-color-primary-container);border-color:var(--md-sys-color-primary-container) }
-.day-chip.is-done .day-chip-num { color:var(--md-sys-color-on-primary-container) }
-.day-chip.is-active { background:var(--md-sys-color-primary);border-color:var(--md-sys-color-primary) }
-.day-chip.is-active .day-chip-num { color:var(--md-sys-color-on-primary) }
+/* ═══════════════════════════════════════════════════════
+   HOME TAB
+═══════════════════════════════════════════════════════ */
 
-.day-hero {
-  display:flex;align-items:flex-start;justify-content:space-between;
-  padding:.5rem 1rem 0;gap:1rem;
+/* Hero banner */
+.hero{
+  position:relative;width:100%;aspect-ratio:16/7;min-height:200px;
+  overflow:hidden;background:var(--bg-1);
 }
-.day-hero-headline {
-  font: var(--md-type-headline-medium);
-  color:var(--md-sys-color-on-surface);
-  line-height:1.15;
+.hero-img{
+  width:100%;height:100%;object-fit:cover;
+  transition:opacity .5s;
 }
-.day-hero-headline em { color:var(--md-sys-color-primary);font-style:normal }
-.today-badge {
+.hero-gradient{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,.1) 0%,rgba(0,0,0,.85) 100%);
+}
+.hero-body{
+  position:absolute;bottom:0;left:0;right:0;padding:1.25rem 1.25rem 1rem;
+}
+.hero-week{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.25rem;
+}
+.hero-day{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:3rem;line-height:.9;text-transform:uppercase;
+  color:#FFF;letter-spacing:-.01em;
+}
+.hero-meta{
+  display:flex;align-items:center;gap:1rem;margin-top:.625rem;
+}
+.hero-badge{
   display:inline-flex;align-items:center;gap:.3rem;
-  background:var(--md-sys-color-tertiary-container);color:var(--md-sys-color-on-tertiary-container);
-  border-radius:var(--md-shape-full);padding:.2rem .75rem;
-  font: var(--md-type-label-small);margin-left:.6rem;vertical-align:middle;
+  font:600 .78rem/1 'Barlow',sans-serif;color:rgba(255,255,255,.75);
 }
-.day-hero-sub {
-  font: var(--md-type-body-medium);
-  color:var(--md-sys-color-on-surface-variant);
-  margin-top:.3rem;
+.hero-badge .material-icons-round{font-size:14px}
+.hero-today{
+  background:var(--accent);color:#FFF;border-radius:var(--r-full);
+  padding:.2rem .625rem;font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
 }
+.hero-date-btn{
+  position:absolute;top:.875rem;right:.875rem;
+  display:flex;align-items:center;gap:.3rem;
+  background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);
+  border-radius:var(--r-full);padding:.35rem .75rem;
+  font:600 .72rem 'Barlow',sans-serif;color:rgba(255,255,255,.85);
+  cursor:pointer;backdrop-filter:blur(8px);transition:all .2s;
+}
+.hero-date-btn:hover{background:rgba(255,45,85,.4);border-color:var(--accent)}
+.hero-date-btn .material-icons-round{font-size:14px}
 
-.progress-row {
-  display:flex;align-items:center;gap:.875rem;
-  padding:.75rem 1rem;
+/* Day selector strip */
+.day-strip-wrap{
+  background:var(--bg);padding:.125rem 0;
+  border-bottom:1px solid var(--border);
 }
-.progress-track {
-  flex:1;height:4px;border-radius:2px;
-  background:var(--md-sys-color-surface-variant);overflow:hidden;
+.day-strip{
+  display:flex;gap:0;overflow-x:auto;
+  scrollbar-width:none;-ms-overflow-style:none;
+  padding:.625rem .875rem;
 }
-.progress-fill {
-  height:100%;background:var(--md-sys-color-primary);
-  border-radius:2px;transition:width .6s cubic-bezier(.34,1.56,.64,1);
+.day-strip::-webkit-scrollbar{display:none}
+.day-dot{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;
+  width:44px;padding:.5rem .25rem;border-radius:var(--r-sm);cursor:pointer;
+  position:relative;overflow:hidden;transition:background .18s;
 }
-.progress-pct {
-  font: var(--md-type-label-large);
-  color:var(--md-sys-color-primary);min-width:3.5ch;text-align:right;
+.day-dot::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:currentColor;opacity:0;transition:.12s;pointer-events:none;
 }
+.day-dot:hover::after{opacity:.08}
+.day-dot-n{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;font-size:.9rem;color:var(--text-2);transition:color .18s;
+}
+.day-dot-ic{font-size:.65rem;color:var(--text-3);transition:color .18s;min-height:10px}
+/* States */
+.day-dot.dd-rest .day-dot-n{color:var(--text-3)}
+.day-dot.dd-done .day-dot-n{color:var(--success)}
+.day-dot.dd-done .day-dot-ic{color:var(--success)}
+.day-dot.dd-active{background:var(--accent)}
+.day-dot.dd-active .day-dot-n{color:#FFF;font-weight:900}
+.day-dot.dd-active .day-dot-ic{color:rgba(255,255,255,.7)}
 
-.rest-day-card {
-  margin:0 1rem 1rem;
-  background:var(--md-sys-color-secondary-container);
-  border-radius:var(--md-shape-extra-large);
-  padding:2.5rem 2rem;text-align:center;
-}
-.rest-day-emoji { font-size:4rem;display:block;margin-bottom:1rem;line-height:1 }
-.rest-day-title {
-  font: var(--md-type-headline-small);
-  color:var(--md-sys-color-on-secondary-container);margin-bottom:.75rem;
-}
-.rest-day-tip {
-  font: var(--md-type-body-medium);
-  color:var(--md-sys-color-on-secondary-container);opacity:.85;line-height:1.7;
-}
-
-.warmup-strip {
-  margin:.25rem 1rem .75rem;
-  background:var(--md-sys-color-tertiary-container);
-  border-radius:var(--md-shape-medium);
-  padding:.75rem 1rem;
-  display:flex;align-items:center;gap:.75rem;
-  font: var(--md-type-body-medium);
-  color:var(--md-sys-color-on-tertiary-container);
-}
-.warmup-strip a {
-  color:var(--md-sys-color-tertiary);font-weight:600;text-decoration:underline;
-}
-
-.exercises-list { padding:0 1rem 1rem;display:flex;flex-direction:column;gap:.75rem }
-.ex-card {
-  background:var(--md-sys-color-surface-container-lowest);
-  border:1px solid var(--md-sys-color-outline-variant);
-  border-radius:var(--md-shape-extra-large);
-  overflow:hidden;
-  animation:fadeUp .3s ease both;
-  transition:border-color .25s,background .25s;
-}
-.ex-card.done {
-  background:var(--md-sys-color-surface-container);
-  border-color:var(--md-sys-color-primary-container);
-}
-.ex-card-header {
-  display:flex;align-items:center;gap:.875rem;
-  padding:1rem 1rem 1rem 1rem;cursor:pointer;
-}
-.ex-card-num {
-  width:36px;height:36px;border-radius:var(--md-shape-medium);
-  background:var(--md-sys-color-surface-container);
-  display:flex;align-items:center;justify-content:center;
-  font: var(--md-type-label-large);
-  color:var(--md-sys-color-on-surface-variant);flex-shrink:0;
-}
-.ex-card.done .ex-card-num {
-  background:var(--md-sys-color-primary-container);
-  color:var(--md-sys-color-on-primary-container);
-}
-.ex-card-info { flex:1;min-width:0 }
-.ex-card-name {
-  font: var(--md-type-title-medium);
-  color:var(--md-sys-color-on-surface);line-height:1.35;
-}
-.ex-card.done .ex-card-name {
-  color:var(--md-sys-color-on-surface-variant);
-  text-decoration:line-through;
-  text-decoration-color:var(--md-sys-color-outline);
-}
-.ex-card-sets {
-  font: var(--md-type-body-small);
-  color:var(--md-sys-color-primary);margin-top:.2rem;white-space:pre-line;
-}
-.ex-card-actions { display:flex;align-items:center;gap:.5rem;flex-shrink:0 }
-.video-chip {
-  display:inline-flex;align-items:center;gap:.25rem;
-  background:var(--md-sys-color-surface-container-high);
-  border:1px solid var(--md-sys-color-outline-variant);
-  border-radius:var(--md-shape-full);
-  padding:.3rem .625rem;
-  font: var(--md-type-label-medium);
-  color:var(--md-sys-color-on-surface-variant);
-  cursor:pointer;transition:all .2s;
-}
-.check-fab {
-  width:40px;height:40px;border-radius:var(--md-shape-medium);
-  display:flex;align-items:center;justify-content:center;
-  border:2px solid var(--md-sys-color-outline-variant);
-  color:var(--md-sys-color-on-surface-variant);
-  cursor:pointer;transition:all .25s;flex-shrink:0;
-  position:relative;overflow:hidden;
-}
-.check-fab.checked {
-  background:var(--md-sys-color-primary);
-  border-color:var(--md-sys-color-primary);
-  color:var(--md-sys-color-on-primary);
-}
-.video-panel {
-  overflow:hidden;max-height:0;
-  transition:max-height .4s cubic-bezier(.4,0,.2,1);
-}
-.video-panel.open { max-height:360px }
-.video-aspect {
-  position:relative;padding-top:56.25%;background:#000;
-}
-.video-aspect iframe {
-  position:absolute;inset:0;width:100%;height:100%;border:none;
-}
-.no-video-msg {
-  padding:1.25rem;text-align:center;
-  font: var(--md-type-body-medium);
-  color:var(--md-sys-color-on-surface-variant);
-  background:var(--md-sys-color-surface-container);
-}
-.no-video-msg a { color:var(--md-sys-color-primary);text-decoration:underline }
-
-.day-nav-row {
-  display:flex;align-items:center;justify-content:center;gap:.625rem;
-  padding:.75rem 1rem 1.5rem;
-}
-
-.schedule-content { padding:1rem }
-.prog-week-header {
-  display:flex;align-items:center;gap:.75rem;
-  font: var(--md-type-label-large);
-  color:var(--md-sys-color-on-surface-variant);
-  text-transform:uppercase;letter-spacing:.08em;
-  margin:1rem 0 .625rem;
-}
-.prog-week-header::after {
-  content:'';flex:1;height:1px;background:var(--md-sys-color-outline-variant);
-}
-.prog-grid {
-  display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:.5rem;
-}
-.prog-cell {
-  aspect-ratio:1;border-radius:var(--md-shape-small);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:3px;cursor:pointer;font: var(--md-type-label-small);
-  color:var(--md-sys-color-on-surface-variant);
-  background:var(--md-sys-color-surface-container-low);
-  border:1.5px solid transparent;transition:all .2s;
-  position:relative;overflow:hidden;
-}
-.prog-cell.pc-rest  { background:var(--md-sys-color-surface-container);opacity:.75 }
-.prog-cell.pc-done  { background:var(--md-sys-color-primary-container);border-color:transparent }
-.prog-cell.pc-active { border-color:var(--md-sys-color-primary);box-shadow:inset 0 0 0 2px var(--md-sys-color-primary-container) }
-
-.profile-content { padding:1rem 1rem 2rem }
-.profile-hero {
-  text-align:center;padding:1.5rem .5rem 2rem;
-  display:flex;flex-direction:column;align-items:center;gap:.75rem;
-}
-.profile-avatar {
-  width:80px;height:80px;border-radius:var(--md-shape-full);
-  background:var(--md-sys-color-primary-container);
-  color:var(--md-sys-color-primary);
-  font: 700 28px/1 'Google Sans',Nunito,sans-serif;
-  display:flex;align-items:center;justify-content:center;overflow:hidden;
-  border:3px solid var(--md-sys-color-primary);
-}
-.profile-avatar img { width:100%;height:100%;object-fit:cover }
-.profile-name { font: var(--md-type-headline-small);color:var(--md-sys-color-on-surface) }
-.profile-email { font: var(--md-type-body-medium);color:var(--md-sys-color-on-surface-variant) }
-.profile-badge {
-  display:inline-flex;align-items:center;gap:.35rem;
-  background:var(--md-sys-color-tertiary-container);
-  color:var(--md-sys-color-on-tertiary-container);
-  border-radius:var(--md-shape-full);padding:.35rem 1rem;
-  font: var(--md-type-label-medium);
-}
-
-.ring-card {
-  background:var(--md-sys-color-surface-container);
-  border-radius:var(--md-shape-extra-large);
-  padding:1.5rem;display:flex;align-items:center;gap:1.25rem;
+/* Workout section */
+.workout-section{padding:.875rem 1rem}
+.section-row{
+  display:flex;align-items:center;justify-content:space-between;
   margin-bottom:.875rem;
 }
-.ring-info h3 { font: var(--md-type-title-large);color:var(--md-sys-color-on-surface) }
-.ring-info p  { font: var(--md-type-body-medium);color:var(--md-sys-color-on-surface-variant);line-height:1.6 }
+.section-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-1);
+}
+.section-pct{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.85rem;color:var(--accent);letter-spacing:.02em;
+}
+.prog-track{
+  height:2px;background:var(--bg-3);border-radius:1px;overflow:hidden;
+  margin-bottom:1.25rem;
+}
+.prog-fill{
+  height:100%;background:var(--accent);border-radius:1px;
+  transition:width .55s cubic-bezier(.34,1.56,.64,1);
+}
 
-.stats-row { display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:.875rem }
-.stat-chip {
-  background:var(--md-sys-color-surface-container);
-  border-radius:var(--md-shape-large);
-  padding:1rem;text-align:center;
+/* Rest day */
+.rest-hero{
+  margin:1rem;border-radius:var(--r-xl);overflow:hidden;position:relative;
 }
-.stat-num {
-  font: var(--md-type-headline-small);
-  color:var(--md-sys-color-primary);line-height:1;
+.rest-hero-img{width:100%;height:220px;object-fit:cover}
+.rest-hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.9) 0%,rgba(0,0,0,.2) 60%);
+  padding:1.5rem 1.5rem;
+  display:flex;flex-direction:column;justify-content:flex-end;
 }
-.stat-lbl {
-  font: var(--md-type-label-small);
-  color:var(--md-sys-color-on-surface-variant);
-  text-transform:uppercase;letter-spacing:.06em;margin-top:.3rem;
+.rest-hero-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:2rem;text-transform:uppercase;
+  color:#FFF;letter-spacing:.01em;margin-bottom:.625rem;
+}
+.rest-hero-tip{font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.6}
+
+/* Warmup strip */
+.warmup-bar{
+  display:flex;align-items:center;gap:.875rem;
+  background:var(--bg-2);border-radius:var(--r-md);
+  padding:.75rem 1rem;margin-bottom:1rem;
+  font-size:.82rem;color:var(--text-2);
+}
+.warmup-bar .material-icons-round{color:var(--warn);font-size:18px;flex-shrink:0}
+.warmup-bar a{color:var(--accent);font-weight:600;text-decoration:underline}
+
+/* Exercise list */
+.ex-list{display:flex;flex-direction:column;gap:.625rem}
+.ex-row{
+  background:var(--bg-1);border-radius:var(--r-md);
+  overflow:hidden;border:1px solid var(--border);
+  transition:border-color .2s;
+}
+.ex-row.done{border-color:rgba(50,215,75,.2)}
+.ex-row-main{
+  display:flex;align-items:stretch;gap:0;cursor:pointer;
+}
+/* Thumbnail */
+.ex-thumb{
+  width:80px;height:80px;flex-shrink:0;object-fit:cover;
+  border-radius:0;
+}
+.ex-thumb-wrap{
+  width:80px;height:80px;flex-shrink:0;
+  background:var(--bg-3);position:relative;overflow:hidden;
+}
+.ex-thumb-wrap img{width:100%;height:100%;object-fit:cover}
+/* Done overlay */
+.ex-row.done .ex-thumb-wrap::after{
+  content:'';position:absolute;inset:0;background:rgba(50,215,75,.25);
+}
+/* Num badge */
+.ex-num{
+  position:absolute;top:5px;left:5px;
+  width:20px;height:20px;border-radius:4px;
+  background:rgba(0,0,0,.65);
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.68rem;
+  color:#FFF;display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.ex-row.done .ex-num{background:var(--success)}
+.ex-body{flex:1;min-width:0;padding:.875rem .75rem .875rem .875rem;display:flex;flex-direction:column;justify-content:center}
+.ex-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:1rem;color:var(--text-1);
+  line-height:1.2;
+}
+.ex-row.done .ex-name{color:var(--text-3);text-decoration:line-through;text-decoration-color:var(--text-3)}
+.ex-sets{
+  font-size:.78rem;color:var(--text-2);margin-top:.25rem;white-space:pre-line;line-height:1.45;
+}
+.ex-actions{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:.5rem;padding:.875rem .875rem .875rem .375rem;
+  flex-shrink:0;
+}
+.vid-btn{
+  width:32px;height:32px;border-radius:var(--r-sm);
+  background:var(--bg-3);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-3);transition:all .2s;cursor:pointer;
+}
+.vid-btn .material-icons-round{font-size:16px}
+.vid-btn.open{background:var(--accent);border-color:var(--accent);color:#FFF}
+.chk{
+  width:32px;height:32px;border-radius:var(--r-sm);
+  border:2px solid var(--border-strong);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-3);cursor:pointer;transition:all .22s;
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+.chk::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:currentColor;opacity:0;transition:.12s;pointer-events:none;
+}
+.chk:hover::after{opacity:.1}
+.chk.on{background:var(--success);border-color:var(--success);color:#FFF}
+.chk .material-icons-round{font-size:17px}
+/* Video panel */
+.vid-panel{overflow:hidden;max-height:0;transition:max-height .42s cubic-bezier(.4,0,.2,1)}
+.vid-panel.open{max-height:360px}
+.vid-ratio{position:relative;padding-top:56.25%;background:#000}
+.vid-ratio iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.no-vid{
+  padding:1.25rem;text-align:center;font-size:.82rem;
+  color:var(--text-3);background:var(--bg-2);
+}
+.no-vid a{color:var(--accent);text-decoration:underline}
+
+/* Mark all / day nav */
+.day-actions{display:flex;gap:.75rem;padding:1.25rem 1rem .5rem}
+.nav-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.875rem 1rem 1.5rem;gap:.5rem;
 }
 
-.settings-section {
-  font: var(--md-type-label-large);
-  color:var(--md-sys-color-on-surface-variant);
-  text-transform:uppercase;letter-spacing:.1em;
-  padding:.875rem 0 .25rem;
+/* ═══════════════════════════════════════════════════════
+   SCHEDULE TAB
+═══════════════════════════════════════════════════════ */
+.schedule-pad{padding:1rem 1rem 2rem}
+.sched-week-hdr{
+  display:flex;align-items:center;gap:.875rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-3);margin:1rem 0 .625rem;
 }
-.settings-list { display:flex;flex-direction:column;gap:.25rem;margin-bottom:1rem }
-.setting-row {
-  display:flex;align-items:center;gap:1rem;
-  background:var(--md-sys-color-surface-container);
-  border-radius:var(--md-shape-large);
-  padding:.875rem 1rem;cursor:pointer;
+.sched-week-hdr::after{content:'';flex:1;height:1px;background:var(--border)}
+.sched-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:.375rem;
+}
+.sched-cell{
+  aspect-ratio:1;border-radius:var(--r-sm);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.7rem;color:var(--text-3);
+  background:var(--bg-1);
+  border:1.5px solid transparent;transition:all .18s;
   position:relative;overflow:hidden;
 }
-.setting-row-icon { color:var(--md-sys-color-on-surface-variant) }
-.setting-row-body { flex:1 }
-.setting-row-title { font: var(--md-type-body-large);color:var(--md-sys-color-on-surface) }
-.setting-row-sub   { font: var(--md-type-body-small);color:var(--md-sys-color-on-surface-variant) }
-.setting-row-trail { color:var(--md-sys-color-on-surface-variant) }
-.setting-row.danger .setting-row-icon,
-.setting-row.danger .setting-row-title { color:var(--md-sys-color-error) }
+.sched-cell::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:currentColor;opacity:0;transition:.12s;pointer-events:none;
+}
+.sched-cell:hover::after{opacity:.08}
+.sc-n{font-weight:800;font-size:.82rem;color:var(--text-2)}
+.sc-ic{font-size:.65rem}
+.sched-cell.sc-rest{background:var(--bg-2);opacity:.65}
+.sched-cell.sc-done{background:rgba(50,215,75,.1);border-color:rgba(50,215,75,.3)}
+.sched-cell.sc-done .sc-n,.sched-cell.sc-done .sc-ic{color:var(--success)}
+.sched-cell.sc-active{border-color:var(--accent);background:var(--accent-dim)}
+.sched-cell.sc-active .sc-n{color:var(--accent)}
 
-.theme-row { display:flex;gap:.625rem;padding:.875rem 0 }
-.theme-choice {
-  flex:1;display:flex;flex-direction:column;align-items:center;gap:.4rem;
-  background:var(--md-sys-color-surface-container-lowest);
-  border:1.5px solid var(--md-sys-color-outline-variant);
-  border-radius:var(--md-shape-large);padding:.875rem .5rem;cursor:pointer;
-  font: var(--md-type-label-medium);color:var(--md-sys-color-on-surface-variant);
+/* ═══════════════════════════════════════════════════════
+   PROFILE TAB
+═══════════════════════════════════════════════════════ */
+.profile-pad{padding:0 1rem 2.5rem}
+/* Profile hero banner */
+.profile-hero-img{
+  width:100%;height:180px;object-fit:cover;
+  background:var(--bg-1);
+}
+.profile-hero-content{
+  padding:1.25rem;
+  display:flex;flex-direction:column;align-items:flex-start;gap:.625rem;
+  background:linear-gradient(to bottom,var(--bg-1),var(--bg));
+}
+.profile-av{
+  width:72px;height:72px;border-radius:50%;overflow:hidden;
+  background:var(--accent);color:#FFF;
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.75rem;
+  display:flex;align-items:center;justify-content:center;
+  border:3px solid var(--bg);
+  margin-top:-48px;
+}
+.profile-av img{width:100%;height:100%}
+.profile-name-block{}
+.profile-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:1.6rem;text-transform:uppercase;
+  color:var(--text-1);line-height:1;
+}
+.profile-email{font-size:.82rem;color:var(--text-2);margin-top:.25rem}
+.profile-date-btn{
+  display:inline-flex;align-items:center;gap:.3rem;
+  background:var(--bg-2);border:1px solid var(--border-strong);
+  border-radius:var(--r-full);padding:.3rem .75rem;
+  font:600 .78rem 'Barlow',sans-serif;color:var(--text-2);
+  cursor:pointer;transition:all .2s;
+}
+.profile-date-btn:hover{border-color:var(--accent);color:var(--accent)}
+.profile-date-btn .material-icons-round{font-size:14px}
+
+/* Stats */
+.stats-strip{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;
+  padding:1rem 0;
+}
+.stat-box{
+  background:var(--bg-1);border-radius:var(--r-md);
+  padding:.875rem .625rem;text-align:center;
+  border:1px solid var(--border);
+}
+.stat-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:2rem;color:var(--text-1);line-height:1;
+}
+.stat-lbl{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-3);margin-top:.25rem;
+}
+
+/* Ring progress */
+.ring-box{
+  background:var(--bg-1);border-radius:var(--r-lg);
+  padding:1.25rem;display:flex;align-items:center;gap:1.25rem;
+  margin-bottom:.625rem;border:1px solid var(--border);
+}
+.ring-info h3{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;font-size:1.2rem;text-transform:uppercase;
+  color:var(--text-1);
+}
+.ring-info p{font-size:.85rem;color:var(--text-2);line-height:1.6;margin-top:.25rem}
+
+/* Settings */
+.settings-hdr{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-3);padding:.875rem 0 .375rem;
+}
+.settings-grp{display:flex;flex-direction:column;gap:.375rem;margin-bottom:.5rem}
+.setting-row{
+  display:flex;align-items:center;gap:.875rem;
+  background:var(--bg-1);border-radius:var(--r-md);
+  padding:.875rem 1rem;cursor:pointer;
+  border:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.setting-row::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:var(--text-1);opacity:0;transition:.15s;pointer-events:none;
+}
+.setting-row:hover::after{opacity:.04}
+.setting-row .material-icons-round.s-icon{color:var(--text-2);font-size:20px;flex-shrink:0}
+.setting-row .s-body{flex:1}
+.setting-row .s-title{font-size:.92rem;font-weight:500;color:var(--text-1)}
+.setting-row .s-sub{font-size:.78rem;color:var(--text-3);margin-top:1px}
+.setting-row .material-icons-round.s-trail{color:var(--text-3);font-size:20px}
+.setting-row.danger .s-icon,.setting-row.danger .s-title{color:var(--error)}
+
+/* Theme switcher */
+.theme-row{display:flex;gap:.5rem;margin-top:.625rem}
+.theme-opt{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:.375rem;
+  background:var(--bg-2);border:1.5px solid var(--border);
+  border-radius:var(--r-md);padding:.75rem .5rem;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.75rem;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--text-2);
   transition:all .2s;
 }
-.theme-choice.active {
-  background:var(--md-sys-color-primary-container);
-  border-color:var(--md-sys-color-primary);
-  color:var(--md-sys-color-on-primary-container);
+.theme-opt.on{border-color:var(--accent);background:var(--accent-dim);color:var(--accent)}
+.theme-opt .material-icons-round{font-size:20px}
+
+/* Sync/offline chips */
+.sync-chip{
+  display:inline-flex;align-items:center;gap:.35rem;
+  border-radius:var(--r-full);padding:.3rem .875rem;
+  font:600 .75rem 'Barlow',sans-serif;margin-bottom:.875rem;
+}
+.sync-chip.online{background:rgba(50,215,75,.1);color:var(--success)}
+.sync-chip.offline{background:rgba(255,69,58,.1);color:var(--error)}
+.sync-chip .material-icons-round{font-size:14px}
+
+/* ═══════════════════════════════════════════════════════
+   SNACKBAR
+═══════════════════════════════════════════════════════ */
+.snackbar{
+  position:fixed;bottom:calc(var(--nav-h) + .875rem);left:.875rem;right:.875rem;
+  background:var(--text-1);color:var(--bg);
+  border-radius:var(--r-sm);padding:.875rem 1rem;
+  font-size:.88rem;font-weight:500;
+  display:flex;align-items:center;gap:.875rem;
+  box-shadow:var(--shadow);z-index:200;
+  opacity:0;transform:translateY(8px);pointer-events:none;
+  transition:all .25s;
+}
+.snackbar.show{opacity:1;transform:translateY(0)}
+.snack-act{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.85rem;letter-spacing:.04em;
+  color:var(--accent);cursor:pointer;white-space:nowrap;
+  margin-left:auto;
 }
 
-.md-snackbar {
-  position:fixed;bottom:88px;left:50%;
-  transform:translateX(-50%) translateY(16px);
-  background:var(--md-sys-color-inverse-surface);
-  color:var(--md-sys-color-inverse-on-surface);
-  border-radius:var(--md-shape-extra-small);
-  padding:.875rem 1rem;
-  font: var(--md-type-body-medium);
-  opacity:0;pointer-events:none;
-  transition:all .25s;z-index:200;
-  white-space:nowrap;max-width:calc(100vw - 2rem);
-  display:flex;align-items:center;gap:.75rem;
-  box-shadow:0 3px 8px var(--md-elevation-shadow-md);
-}
-.md-snackbar.show {
-  opacity:1;transform:translateX(-50%) translateY(0);
-}
-
-.md-dialog-scrim {
-  position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:150;
+/* ═══════════════════════════════════════════════════════
+   DIALOG — bottom sheet
+═══════════════════════════════════════════════════════ */
+.dlg-scrim{
+  position:fixed;inset:0;background:var(--scrim);z-index:150;
   display:none;align-items:flex-end;justify-content:center;
   backdrop-filter:blur(4px);
 }
-.md-dialog-scrim.open { display:flex;animation:scrimFade .2s }
-.md-dialog {
-  background:var(--md-sys-color-surface-container-highest);
-  border-radius:28px 28px 0 0;
+.dlg-scrim.open{display:flex;animation:scrimIn .2s}
+@keyframes scrimIn{from{opacity:0}to{opacity:1}}
+.dlg{
+  background:var(--bg-1);
+  border-radius:var(--r-xl) var(--r-xl) 0 0;
   width:100%;max-width:900px;
-  padding:1.5rem 1.5rem max(1.5rem,env(safe-area-inset-bottom));
-  animation:sheetUp .32s cubic-bezier(.4,0,.2,1);
+  padding:1.5rem 1.5rem calc(1.5rem + env(safe-area-inset-bottom));
+  animation:sheetIn .32s cubic-bezier(.4,0,.2,1);
+  border-top:1px solid var(--border-strong);
 }
-@keyframes sheetUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
-.md-dialog-handle {
-  width:32px;height:4px;border-radius:2px;
-  background:var(--md-sys-color-outline-variant);margin:0 auto 1.5rem;
+@keyframes sheetIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.dlg-handle{
+  width:36px;height:3px;background:var(--bg-4);
+  border-radius:2px;margin:0 auto 1.5rem;
 }
-.md-dialog-title { font: var(--md-type-headline-small);color:var(--md-sys-color-on-surface);margin-bottom:.75rem }
-.md-dialog-body  { font: var(--md-type-body-large);color:var(--md-sys-color-on-surface-variant);line-height:1.65;margin-bottom:1.5rem }
-.md-dialog-actions { display:flex;justify-content:flex-end;gap:.5rem }
+.dlg-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:1.4rem;text-transform:uppercase;
+  color:var(--text-1);margin-bottom:.875rem;
+}
+.dlg-body{
+  font-size:.9rem;color:var(--text-2);line-height:1.6;margin-bottom:1.5rem;
+}
+.dlg-actions{display:flex;justify-content:flex-end;gap:.5rem}
 
-.hidden  { display:none!important }
+/* Date dialog preview */
+.date-prev{
+  background:var(--bg-2);border-radius:var(--r-md);
+  padding:.875rem 1rem;margin-bottom:.875rem;
+  display:flex;align-items:center;gap:.875rem;border:1px solid var(--border);
+}
+.date-prev .material-icons-round{color:var(--accent);font-size:24px;flex-shrink:0}
+.date-prev-main{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:var(--text-1)}
+.date-prev-sub{font-size:.78rem;color:var(--text-2);margin-top:2px}
+.date-quick{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.875rem}
+.date-hint{
+  background:var(--bg-2);border-radius:var(--r-sm);
+  padding:.625rem .875rem;font-size:.78rem;color:var(--text-3);
+  line-height:1.5;margin-bottom:.875rem;
+  display:flex;gap:.5rem;align-items:flex-start;
+}
+.date-hint .material-icons-round{font-size:15px;color:var(--text-3);flex-shrink:0;margin-top:1px}
 
-@media (min-width:600px) {
-  .auth-scroll { flex-direction:row;max-width:none;align-items:stretch }
-  .auth-hero { flex:1;border-radius:0 var(--md-shape-extra-large) var(--md-shape-extra-large) 0 }
-  .auth-sheet {
-    width:380px;flex-shrink:0;border-radius:0;
-    border-left:1px solid var(--md-sys-color-outline-variant);
-    box-shadow:none;justify-content:center;
-  }
-  .exercises-list,.schedule-content,.profile-content { max-width:680px;margin:0 auto }
-  .home-content { max-width:680px;margin:0 auto }
+/* ─── Utilities ─── */
+.hidden{display:none!important}
+.mt-1{margin-top:.5rem}
+.mt-2{margin-top:1rem}
+
+/* ─── Responsive ─── */
+@media(min-width:600px){
+  #s-auth{flex-direction:row}
+  .auth-bg{flex:1;height:auto;min-height:100dvh}
+  .auth-sheet{width:380px;flex-shrink:0;justify-content:center;padding:3rem 2rem}
+  .workout-section,.day-actions,.nav-row,.schedule-pad,.profile-pad{max-width:680px;margin-left:auto;margin-right:auto}
+  .hero,.day-strip-wrap{max-width:680px;margin-left:auto;margin-right:auto}
+}
+@media(max-width:360px){
+  .hero-day{font-size:2.4rem}
+  .sched-grid{gap:3px}
+  .sched-cell{border-radius:5px}
 }
 </style>
 </head>
 <body>
 
-<div id="screen-splash" class="screen active">
-  <div class="splash-mark">
-    <span class="material-icons-round">self_improvement</span>
-  </div>
-  <p class="splash-title">Mom.Bod<strong>.Strong</strong></p>
-  <div class="md-progress-indicator"></div>
+<!-- ══ SPLASH ══ -->
+<div id="s-splash" class="screen active">
+  <div class="splash-logo">Mom.Bod<span>.Strong</span></div>
+  <div class="spinner"></div>
 </div>
 
-<div id="screen-auth" class="screen">
-  <div class="auth-scroll">
-    <div class="auth-hero">
-      <div class="auth-hero-icon">
-        <span class="material-icons-round">favorite</span>
+<!-- ══ AUTH ══ -->
+<div id="s-auth" class="screen">
+  <div class="auth-bg">
+    <div class="auth-bg-copy">
+      <div class="auth-eyebrow">9-Week Program</div>
+      <div class="auth-headline">Mom.<br>Bod.<br>Strong.</div>
+      <p class="auth-sub">Your postpartum fitness journey, tracked beautifully.</p>
+    </div>
+  </div>
+  <div class="auth-sheet">
+    <div class="auth-sheet-label">Sign in to sync</div>
+
+    <button class="btn btn-google btn-full rpl" onclick="authGoogle()">
+      <svg class="google-icon" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.5 0 6.5 1.2 8.9 3.2l6.6-6.6C35.3 2.5 30 0 24 0 14.7 0 6.8 5.4 2.9 13.3l7.7 6C12.5 13 17.8 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.8 7.2l7.6 5.9c4.4-4.1 7-10.1 7-17.1z"/>
+        <path fill="#FBBC05" d="M10.6 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.7-4.7l-7.7-6A23.9 23.9 0 0 0 0 24c0 3.9.9 7.6 2.5 10.9l8.1-6.2z"/>
+        <path fill="#34A853" d="M24 48c6 0 11.1-2 14.8-5.4l-7.6-5.9c-2 1.4-4.6 2.2-7.2 2.2-6.2 0-11.5-4.2-13.4-9.9l-8.1 6.2C6.8 42.6 14.7 48 24 48z"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <div class="divider">or</div>
+
+    <!-- Email form -->
+    <div id="email-form" class="hidden">
+      <div class="field">
+        <input class="field-input" type="email" id="f-email" placeholder=" " autocomplete="email">
+        <label class="field-label">Email address</label>
       </div>
-      <h1 class="auth-display-title">Mom.Bod<span>.Strong</span></h1>
-      <p>Your 9-week postpartum fitness journey, beautifully tracked.</p>
+      <div class="field" style="position:relative">
+        <input class="field-input" type="password" id="f-pass" placeholder=" " autocomplete="current-password" style="padding-right:3rem">
+        <label class="field-label">Password</label>
+        <span class="field-trail" onclick="togglePassVis()">
+          <span class="material-icons-round">visibility</span>
+        </span>
+      </div>
+      <div class="field hidden" id="f-name-wrap">
+        <input class="field-input" type="text" id="f-name" placeholder=" " autocomplete="given-name">
+        <label class="field-label">Your first name</label>
+      </div>
+      <p id="auth-err" class="field-err hidden"></p>
+      <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.75rem">
+        <button id="email-btn" class="btn btn-primary btn-full rpl" onclick="authEmail()">Sign In</button>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <button class="btn btn-text rpl" id="mode-btn" onclick="toggleMode()">Create account</button>
+          <button class="btn btn-text rpl" onclick="forgotPw()">Forgot password?</button>
+        </div>
+        <button class="btn btn-ghost btn-full rpl" onclick="showEmailForm(false)">
+          <span class="material-icons-round">arrow_back</span> Back
+        </button>
+      </div>
     </div>
 
-    <div class="auth-sheet">
-      <p class="auth-sheet-title">Sign in to sync progress</p>
-
-      <div id="email-form">
-        <div class="md-field">
-          <input class="md-field-input" type="email" id="f-email" placeholder=" " autocomplete="email">
-          <label class="md-field-label">Email address</label>
-        </div>
-        <div class="md-field" style="position:relative">
-          <input class="md-field-input" type="password" id="f-pass" placeholder=" " autocomplete="current-password" style="padding-right:3rem">
-          <label class="md-field-label">Password</label>
-          <span class="md-field-trail material-icons-round" onclick="togglePassVis()">visibility</span>
-        </div>
-        <div class="md-field hidden" id="f-name-wrap">
-          <input class="md-field-input" type="text" id="f-name" placeholder=" " autocomplete="given-name">
-          <label class="md-field-label">Your first name</label>
-        </div>
-        <p id="auth-error" class="md-field-error hidden"></p>
-        <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.75rem">
-          <button id="email-submit-btn" class="md-btn md-btn-filled md-btn-full md-ripple" onclick="authEmailSubmit()">Sign In</button>
-          <div style="display:flex;justify-content:space-between">
-            <button class="md-btn md-btn-text md-ripple" id="toggle-auth-mode" onclick="toggleAuthMode()">Create account</button>
-            <button class="md-btn md-btn-text md-ripple" onclick="authForgotPassword()">Forgot password?</button>
-          </div>
-          <button class="md-btn md-btn-text md-btn-full md-ripple" style="color:var(--md-sys-color-on-surface-variant); margin-top: 1rem" onclick="authAsGuest()">
-            Continue as Guest (offline only)
-          </button>
-        </div>
-      </div>
+    <div id="auth-default">
+      <button class="btn btn-ghost btn-full rpl" onclick="showEmailForm(true)">
+        <span class="material-icons-round">mail</span> Continue with Email
+      </button>
+      <button class="btn btn-text btn-full rpl" style="color:var(--text-3);margin-top:.25rem" onclick="authGuest()">
+        Continue as Guest
+      </button>
     </div>
   </div>
 </div>
 
-<div id="screen-onboard" class="screen">
-  <div class="onboard-container">
-    <div class="onboard-progress-bar">
-      <div class="onboard-progress-fill" id="ob-progress" style="width:33%"></div>
+<!-- ══ ONBOARDING ══ -->
+<div id="s-onboard" class="screen">
+  <div class="ob-wrap">
+    <div class="ob-bar">
+      <div class="ob-bar-seg" id="ob-seg-1"></div>
+      <div class="ob-bar-seg" id="ob-seg-2"></div>
+      <div class="ob-bar-seg" id="ob-seg-3"></div>
     </div>
 
-    <div id="ob-step-1" class="onboard-step active">
-      <div class="onboard-step-icon">
-        <span class="material-icons-round">waving_hand</span>
+    <!-- Step 1: Name -->
+    <div id="ob-1" class="ob-step active">
+      <img class="ob-img" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=75&auto=format&fit=crop" alt="Fitness" loading="eager">
+      <div class="ob-tag">Welcome</div>
+      <h2 class="ob-h">What's your<br>name?</h2>
+      <p class="ob-p">We'll personalise your 9-week program and track your progress just for you.</p>
+      <div class="field" style="margin-bottom:1.5rem">
+        <input class="field-input" type="text" id="ob-name" placeholder=" " autocomplete="given-name">
+        <label class="field-label">Your first name</label>
       </div>
-      <h2>Welcome! What's your name?</h2>
-      <p>We'll use it to personalise your experience throughout the 9-week program.</p>
-      <div class="md-field">
-        <input class="md-field-input" type="text" id="ob-name" placeholder=" " autocomplete="given-name">
-        <label class="md-field-label">Your first name</label>
-      </div>
-      <div class="onboard-nav">
-        <button class="md-btn md-btn-filled md-btn-full md-ripple" style="height:48px" onclick="obStep1Next()">
+      <div class="ob-nav">
+        <button class="btn btn-primary btn-full btn-lg rpl" onclick="ob1Next()">
           Continue <span class="material-icons-round">arrow_forward</span>
         </button>
       </div>
     </div>
 
-    <div id="ob-step-2" class="onboard-step">
-      <div class="onboard-step-icon">
-        <span class="material-icons-round">rocket_launch</span>
-      </div>
-      <h2>Ready to start your program?</h2>
-      <p>Choose your start date. We'll use it to auto-load the right day's workout every time you open the app.</p>
-      <div class="start-card">
-        <span class="start-card-emoji">💪</span>
-        <h3>Mom.Bod.Strong<br>9-Week Program</h3>
-        <p>56 workout days • Weeks 1–7 + Week 9</p>
-        <div class="date-pill" id="ob-date-display">
-          <span class="material-icons-round" style="font-size:16px">calendar_today</span>
-          <span id="ob-date-text">Pick a start date</span>
+    <!-- Step 2: Start Date -->
+    <div id="ob-2" class="ob-step">
+      <div class="ob-start-card">
+        <img src="https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=800&q=75&auto=format&fit=crop" alt="Working out" style="width:100%;height:160px;object-fit:cover" loading="eager">
+        <div class="ob-start-overlay">
+          <div class="ob-start-title">Mom.Bod.Strong<br>9-Week Program</div>
+          <div class="ob-start-sub">56 workout days · Weeks 1–7 + Week 9</div>
+          <div class="ob-date-pill" id="ob-pill">
+            <span class="material-icons-round">calendar_today</span>
+            <span id="ob-pill-txt">Pick your start date</span>
+          </div>
         </div>
       </div>
-      <div class="md-field">
-        <input class="md-field-input" type="date" id="ob-date" placeholder=" " onchange="obDateChanged()">
-        <label class="md-field-label" style="transform:translateY(-.65rem) scale(.75);color:var(--md-sys-color-primary)">Program start date</label>
+      <div class="ob-tag">Program Start</div>
+      <h2 class="ob-h">When did you<br>begin?</h2>
+      <p class="ob-p" style="margin-bottom:.75rem">Set your start date and the app will always load today's correct workout automatically.</p>
+      <div class="ob-hint">
+        <span class="material-icons-round">tips_and_updates</span>
+        Starting today? Tap <strong>Start Today</strong>. Already a few days in? Pick the actual date you started.
       </div>
-      <div class="onboard-nav">
-        <button class="md-btn md-btn-outlined md-ripple" style="height:48px" onclick="obBack()">
+      <div class="field" style="margin-bottom:1.5rem">
+        <input class="field-input" type="date" id="ob-date" placeholder=" " onchange="obDateChange()">
+        <label class="field-label" style="transform:translateY(-.6rem) scale(.72);color:var(--accent)">Program start date</label>
+      </div>
+      <div class="ob-nav">
+        <button class="btn btn-ghost rpl" style="height:52px" onclick="obBack()">
           <span class="material-icons-round">arrow_back</span>
         </button>
-        <button class="md-btn md-btn-tonal md-btn-full md-ripple" style="height:48px" onclick="obStartToday()">
+        <button class="btn btn-subtle rpl" style="flex:1;height:52px" onclick="obToday()">
           <span class="material-icons-round">today</span> Start Today
         </button>
-        <button id="ob-confirm-btn" class="md-btn md-btn-filled md-btn-full md-ripple hidden" style="height:48px" onclick="obConfirmDate()">
+        <button id="ob-confirm" class="btn btn-primary rpl hidden" style="flex:1;height:52px" onclick="obConfirm()">
           <span class="material-icons-round">check</span> Confirm
         </button>
       </div>
     </div>
 
-    <div id="ob-step-3" class="onboard-step">
-      <div class="onboard-step-icon" style="background:var(--md-sys-color-tertiary-container)">
-        <span class="material-icons-round" style="color:var(--md-sys-color-tertiary)">emoji_events</span>
-      </div>
-      <h2>You're all set! 🎉</h2>
-      <p>Everything is ready. Here's what you'll get:</p>
+    <!-- Step 3: Ready -->
+    <div id="ob-3" class="ob-step">
+      <img class="ob-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&q=75&auto=format&fit=crop" alt="Ready to train" loading="eager">
+      <div class="ob-tag">All Set</div>
+      <h2 class="ob-h">You're ready<br>to train. 💪</h2>
       <div class="feature-list">
         <div class="feature-row">
           <span class="material-icons-round">fitness_center</span>
-          <span>Daily workouts auto-loaded based on your start date</span>
+          <span>Daily workouts auto-loaded from your start date</span>
         </div>
         <div class="feature-row">
           <span class="material-icons-round">play_circle</span>
@@ -957,87 +1058,137 @@ img { display:block;max-width:100% }
         </div>
         <div class="feature-row">
           <span class="material-icons-round">cloud_sync</span>
-          <span>Progress saved to cloud — never lose your streak</span>
+          <span>Progress synced to cloud — never lose your streak</span>
+        </div>
+        <div class="feature-row">
+          <span class="material-icons-round">spa</span>
+          <span>Self-care tips on rest days</span>
         </div>
       </div>
-      <div class="onboard-nav">
-        <button class="md-btn md-btn-filled md-btn-full md-btn-large md-ripple" onclick="obFinish()">
-          <span class="material-icons-round">arrow_forward</span> Go to My Workout
+      <div class="ob-nav">
+        <button class="btn btn-primary btn-full btn-lg rpl" onclick="obFinish()">
+          Start Program <span class="material-icons-round">arrow_forward</span>
         </button>
       </div>
     </div>
   </div>
 </div>
 
-<div id="screen-app" class="screen">
-  <header class="top-app-bar">
-    <div class="top-app-bar-title">
-      <span id="bar-title">Mom.Bod.Strong</span>
-      <small id="bar-sub"></small>
-    </div>
-    <div id="sync-btn" class="md-icon-btn md-ripple" onclick="manualSync()" title="Sync">
-      <span class="material-icons-round">sync</span>
-      <div class="sync-spinner"></div>
-    </div>
-    <div class="md-icon-btn md-ripple" onclick="cycleTheme()" title="Toggle theme">
-      <span class="material-icons-round" id="theme-icon">light_mode</span>
-    </div>
-    <div class="avatar-chip md-ripple" onclick="goTab('profile')">
-      <div class="avatar-circle" id="top-avatar">?</div>
-      <span class="avatar-name" id="top-avatar-name">Me</span>
+<!-- ══ MAIN APP ══ -->
+<div id="s-app" class="screen">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-logo">Mom.Bod<span>.Strong</span></div>
+    <div class="topbar-right">
+      <div id="sync-btn" class="icon-btn rpl" onclick="manualSync()">
+        <span class="material-icons-round">sync</span>
+        <div class="sync-ring"></div>
+      </div>
+      <div class="icon-btn rpl" onclick="cycleTheme()">
+        <span class="material-icons-round" id="theme-icon">light_mode</span>
+      </div>
+      <div class="av-chip rpl" onclick="goTab('profile')">
+        <div class="av-circle" id="top-av">?</div>
+        <span class="av-name" id="top-av-name">Me</span>
+      </div>
     </div>
   </header>
 
-  <div id="tab-home"     class="tab-panel active"></div>
-  <div id="tab-schedule" class="tab-panel"></div>
-  <div id="tab-profile"  class="tab-panel"></div>
+  <!-- Tab content -->
+  <div id="tab-home"     class="tab active"></div>
+  <div id="tab-schedule" class="tab"></div>
+  <div id="tab-profile"  class="tab"></div>
 
-  <nav class="md-nav-bar">
-    <div id="nav-home" class="md-nav-item active" onclick="goTab('home')">
-      <div class="md-nav-indicator">
-        <span class="material-icons-round">home</span>
-      </div>
-      <span class="md-nav-label">Home</span>
+  <!-- Bottom nav -->
+  <nav class="nav-bar">
+    <div id="nav-home"     class="nav-item active" onclick="goTab('home')">
+      <span class="material-icons-round">home</span>
+      <span class="nav-lbl">Home</span>
     </div>
-    <div id="nav-schedule" class="md-nav-item" onclick="goTab('schedule')">
-      <div class="md-nav-indicator">
-        <span class="material-icons-round">calendar_month</span>
-      </div>
-      <span class="md-nav-label">Schedule</span>
+    <div id="nav-schedule" class="nav-item" onclick="goTab('schedule')">
+      <span class="material-icons-round">calendar_month</span>
+      <span class="nav-lbl">Schedule</span>
     </div>
-    <div id="nav-profile" class="md-nav-item" onclick="goTab('profile')">
-      <div class="md-nav-indicator">
-        <span class="material-icons-round">person</span>
-      </div>
-      <span class="md-nav-label">Profile</span>
+    <div id="nav-profile"  class="nav-item" onclick="goTab('profile')">
+      <span class="material-icons-round">person</span>
+      <span class="nav-lbl">Profile</span>
     </div>
   </nav>
 </div>
 
-<div class="md-snackbar" id="snackbar">
+<!-- ══ SNACKBAR ══ -->
+<div class="snackbar" id="snackbar">
   <span id="snack-msg"></span>
+  <span class="snack-act hidden" id="snack-act"></span>
 </div>
 
-<div class="md-dialog-scrim" id="dialog-scrim" onclick="closeDialog()">
-  <div class="md-dialog" onclick="event.stopPropagation()">
-    <div class="md-dialog-handle"></div>
-    <div class="md-dialog-title" id="dlg-title"></div>
-    <div class="md-dialog-body"  id="dlg-body"></div>
-    <div class="md-dialog-actions" id="dlg-actions"></div>
+<!-- ══ DIALOG ══ -->
+<div class="dlg-scrim" id="dlg-scrim" onclick="closeDlg()">
+  <div class="dlg" onclick="event.stopPropagation()">
+    <div class="dlg-handle"></div>
+    <div class="dlg-title"  id="dlg-title"></div>
+    <div class="dlg-body"   id="dlg-body"></div>
+    <div class="dlg-actions" id="dlg-actions"></div>
   </div>
 </div>
 
+<!-- ════════════════════════════════════════════════════
+  FIREBASE — compat SDK
+════════════════════════════════════════════════════ -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
-const WD=[{"dayNum":1,"label":"Day 1","isRest":false,"restTip":null,"exercises":[{"name":"CB cross legged","setsReps":"8 reps X 1 set","url":"https://youtu.be/qWGjDmoMdlI"},{"name":"CB lying down","setsReps":"8 reps X 1 set","url":"https://youtu.be/6C2zetY58Ps"},{"name":"The Heel Slide","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/YON59r7nBPM"},{"name":"Clamshell","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/MzkpP0JixT8"},{"name":"Single Leg Heel Taps","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/nO3To7K-Zuw"},{"name":"Advanced Glute Bridge","setsReps":"8 reps X 2 set","url":"https://youtu.be/pSi80dwMGiM"}],"week":"Week 1"},{"dayNum":2,"label":"Day 2","isRest":false,"restTip":null,"exercises":[{"name":"CB lying down","setsReps":"8 reps X 1 set","url":"https://youtu.be/6C2zetY58Ps"},{"name":"The Heel Slide","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/YON59r7nBPM"},{"name":"Advanced Glute Bridge","setsReps":"8 reps X 3 set","url":"https://youtu.be/pSi80dwMGiM"},{"name":"Open Book","setsReps":"8 reps X 3 set","url":"https://youtu.be/F6xwouE1Xtk"},{"name":"Advanced Clam Shell","setsReps":"8 reps X 3 set\n(both sides)","url":"https://youtu.be/kfkA1XtBcjs"}],"week":"Week 1"},{"dayNum":3,"label":"Day 3","isRest":true,"restTip":"Self-care Tip: Stick to one cup of coffee or tea and drink 8 glasses of water today. Your body and skin will thank you.","exercises":[],"week":"Week 1"},{"dayNum":4,"label":"Day 4","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"8 reps X 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Quadrupled Palm Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/DkFgRAS0G6Y"},{"name":"Advanced Glute Bridge","setsReps":"8 reps X 3 set","url":"https://youtu.be/pSi80dwMGiM"},{"name":"Quadrupled Knee Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/X9HRk2m36Nc"},{"name":"Open Book","setsReps":"8 reps X 3 set","url":"https://youtu.be/F6xwouE1Xtk"}],"week":"Week 1"},{"dayNum":5,"label":"Day 5","isRest":false,"restTip":null,"exercises":[{"name":"The Heel Slide","setsReps":"8 reps X 3 set\n(R & L = one rep)","url":"https://youtu.be/YON59r7nBPM"},{"name":"Quadrupled Palm Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/DkFgRAS0G6Y"},{"name":"Advanced Clam Shell","setsReps":"8 reps X 3 set\n(both sides)","url":"https://youtu.be/kfkA1XtBcjs"},{"name":"Quadrupled Knee Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/X9HRk2m36Nc"},{"name":"Advanced Glute Bridge","setsReps":"8 reps X 3 set","url":"https://youtu.be/pSi80dwMGiM"}],"week":"Week 1"},{"dayNum":6,"label":"Day 6","isRest":true,"restTip":"Self-care Tip: Write a gratitude journal — jot down 3 things you're thankful for to gain a positive perspective.","exercises":[],"week":"Week 1"},{"dayNum":7,"label":"Day 7","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"4 reps X 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Quadrupled Palm Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/DkFgRAS0G6Y"},{"name":"Advanced Glute Bridge","setsReps":"8 reps X 3 set","url":"https://youtu.be/pSi80dwMGiM"},{"name":"Quadrupled Knee Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/X9HRk2m36Nc"},{"name":"Single Leg Heel Taps","setsReps":"8 reps X 3 set\n(R & L = one rep)","url":"https://youtu.be/nO3To7K-Zuw"}],"week":"Week 1"},{"dayNum":8,"label":"Day 8","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"8 reps X 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Modified Bird Dog Leg Reach","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/9ti8vHT-WJE"},{"name":"Advanced Bird Dog Leg Reach","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/tCNC0o0N1IE"},{"name":"Open Book","setsReps":"8 reps X 2 set","url":"https://youtu.be/F6xwouE1Xtk"},{"name":"Fire Hydrant","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/PSTGmTJLKzE"}],"week":"Week 2"},{"dayNum":9,"label":"Day 9","isRest":true,"restTip":"Self-care Tip: Take a social media break today. Step away to improve your mood and use the time productively.","exercises":[],"week":"Week 2"},{"dayNum":10,"label":"Day 10","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"4 reps X 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Quadrupled Palm & Knee Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/_PbdPnTCiwg"},{"name":"Advanced Glute Bridge","setsReps":"8 reps X 3 set","url":"https://youtu.be/pSi80dwMGiM"},{"name":"Modified Bird Dog Arm Reach","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/9ti8vHT-WJE"},{"name":"Advanced Bird Dog Leg Reach","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/tCNC0o0N1IE"}],"week":"Week 2"},{"dayNum":11,"label":"Day 11","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"4 reps X 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Bird Dog Reach","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/U04B8ewd7_s"},{"name":"Advanced Glute Bridge","setsReps":"8 reps X 3 set","url":"https://youtu.be/pSi80dwMGiM"},{"name":"Bird Dog with Leg Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/xnbwzEfGH9w"},{"name":"Advanced Fire Hydrant","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/EALEhqzDiuA"}],"week":"Week 2"},{"dayNum":12,"label":"Day 12","isRest":true,"restTip":"Self-care Tip: Switch off your phone for 30 minutes — spend that time doing something you enjoy without distractions.","exercises":[],"week":"Week 2"},{"dayNum":13,"label":"Day 13","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"8 reps X 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Bird Dog Reach","setsReps":"8 reps X 1 set\n(R & L = one rep)","url":"https://youtu.be/U04B8ewd7_s"},{"name":"Bird Dog with Leg Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/xnbwzEfGH9w"},{"name":"Clamshell","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/MzkpP0JixT8"},{"name":"Fire Hydrant","setsReps":"8 reps X 3 set\n(both sides)","url":"https://youtu.be/PSTGmTJLKzE"}],"week":"Week 2"},{"dayNum":14,"label":"Day 14","isRest":false,"restTip":null,"exercises":[{"name":"Clamshell","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/MzkpP0JixT8"},{"name":"Quadrupled Palm & Knee Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/_PbdPnTCiwg"},{"name":"The Heel Slide","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/YON59r7nBPM"},{"name":"Fire Hydrant","setsReps":"8 reps X 1 set\n(R & L = one rep)","url":"https://youtu.be/PSTGmTJLKzE"},{"name":"Advanced Fire Hydrant","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/EALEhqzDiuA"}],"week":"Week 2"},{"dayNum":15,"label":"Day 15","isRest":true,"restTip":"Self-care Tip: Moisturise! Don't forget the largest organ of your body — your skin. Break out the scented lotions and indulge.","exercises":[],"week":"Week 3"},{"dayNum":16,"label":"Day 16","isRest":false,"restTip":null,"exercises":[{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Overhand Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/quP1kiFvBxQ"},{"name":"Modified Bird Dog Arm Reach","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/9ti8vHT-WJE"},{"name":"Advanced Bird Dog Leg Reach","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/tCNC0o0N1IE"}],"week":"Week 3"},{"dayNum":17,"label":"Day 17","isRest":false,"restTip":null,"exercises":[{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Dead Bug — Leg Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/4RDx6vFVfWM"},{"name":"Banded Walk","setsReps":"10 reps X 3 sets","url":"https://youtu.be/S1G_uELQp6E"},{"name":"Bird Dog with Leg Lift","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/xnbwzEfGH9w"},{"name":"Advanced Fire Hydrant","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/EALEhqzDiuA"}],"week":"Week 3"},{"dayNum":18,"label":"Day 18","isRest":true,"restTip":"Self-care Tip: Spend 15 minutes alone — introspecting or doing something you enjoy. You deserve it.","exercises":[],"week":"Week 3"},{"dayNum":19,"label":"Day 19","isRest":false,"restTip":null,"exercises":[{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps X 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Floor Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/sE8jpu6LNpQ"},{"name":"Clamshell","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/MzkpP0JixT8"},{"name":"Fire Hydrant","setsReps":"8 reps X 3 set\n(both sides)","url":"https://youtu.be/PSTGmTJLKzE"}],"week":"Week 3"},{"dayNum":20,"label":"Day 20","isRest":false,"restTip":null,"exercises":[{"name":"Bird Dog with Band Pull","setsReps":"10 reps X 3 sets","url":"https://youtu.be/myftKnwQyXg"},{"name":"Bird Dog with Leg Swing","setsReps":"10 reps X 3 sets","url":"https://youtu.be/fO7lHO-Ky_k"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Fire Hydrant","setsReps":"8 reps X 1 set\n(R & L = one rep)","url":"https://youtu.be/PSTGmTJLKzE"},{"name":"Advanced Fire Hydrant","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/EALEhqzDiuA"}],"week":"Week 3"},{"dayNum":21,"label":"Day 21","isRest":false,"restTip":null,"exercises":[{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Dead Bug — Leg Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/4RDx6vFVfWM"},{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps X 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Double Squat with Band","setsReps":"10 reps X 3 sets","url":"https://youtu.be/yNCwgLjz7o8"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"}],"week":"Week 3"},{"dayNum":22,"label":"Day 22","isRest":true,"restTip":"Self-care Tip: Drink 8 glasses of water today and cut back on caffeine — your body will thank you.","exercises":[],"week":"Week 4"},{"dayNum":23,"label":"Day 23","isRest":false,"restTip":null,"exercises":[{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Overhand Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/quP1kiFvBxQ"},{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps X 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Double Squat with Band","setsReps":"10 reps X 3 sets","url":"https://youtu.be/yNCwgLjz7o8"}],"week":"Week 4"},{"dayNum":24,"label":"Day 24","isRest":false,"restTip":null,"exercises":[{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Dead Bug — Leg Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/4RDx6vFVfWM"},{"name":"Banded Walk","setsReps":"10 reps X 3 sets","url":"https://youtu.be/S1G_uELQp6E"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Bird Dog with Band Pull","setsReps":"10 reps X 3 sets","url":"https://youtu.be/myftKnwQyXg"}],"week":"Week 4"},{"dayNum":25,"label":"Day 25","isRest":true,"restTip":"Self-care Tip: Call a friend — reconnect with someone you haven't spoken to in a while and relive some sweet memories.","exercises":[],"week":"Week 4"},{"dayNum":26,"label":"Day 26","isRest":false,"restTip":null,"exercises":[{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps X 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Floor Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/sE8jpu6LNpQ"},{"name":"Quadrupled Band Pull","setsReps":"10 reps X 3 sets","url":"https://youtu.be/hYp3y7WXjSo"},{"name":"Banded Squat","setsReps":"10 reps X 3 sets","url":"https://youtu.be/7uX2Hy0VdMg"}],"week":"Week 4"},{"dayNum":27,"label":"Day 27","isRest":false,"restTip":null,"exercises":[{"name":"Bird Dog with Band Pull","setsReps":"10 reps X 3 sets","url":"https://youtu.be/myftKnwQyXg"},{"name":"Bird Dog with Leg Swing","setsReps":"10 reps X 3 sets","url":"https://youtu.be/fO7lHO-Ky_k"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Banded Squat","setsReps":"10 reps X 3 sets","url":"https://youtu.be/7uX2Hy0VdMg"},{"name":"Banded Walk","setsReps":"10 reps X 3 sets","url":"https://youtu.be/S1G_uELQp6E"}],"week":"Week 4"},{"dayNum":28,"label":"Day 28","isRest":false,"restTip":null,"exercises":[{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Dead Bug — Leg Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/4RDx6vFVfWM"},{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps X 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Double Squat with Band","setsReps":"10 reps X 3 sets","url":"https://youtu.be/yNCwgLjz7o8"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"}],"week":"Week 4"},{"dayNum":29,"label":"Day 29","isRest":true,"restTip":"Self-care Tip: Family time! Bring out the board games, pop some popcorn, and spend quality time together.","exercises":[],"week":"Week 5"},{"dayNum":30,"label":"Day 30","isRest":false,"restTip":null,"exercises":[{"name":"Chair Squeeze","setsReps":"8 reps X 2 set","url":"https://youtu.be/4bLs7Y7XZvA"},{"name":"Elevated Marches","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/FNmGZxQ8UZI"},{"name":"Knee Pushes","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/w__9x7HrdWE"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Low Arm Hover","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/v9ao20jA3UM"},{"name":"Ankle Lift","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/fp59I6IyNaU"},{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/mmaAwVfMhyc"}],"week":"Week 5"},{"dayNum":31,"label":"Day 31","isRest":false,"restTip":null,"exercises":[{"name":"Chair Squeeze","setsReps":"8 reps X 2 set","url":"https://youtu.be/4bLs7Y7XZvA"},{"name":"Bear Hold","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/8WcmHG9EdvQ"},{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps X 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Knee Raises","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/Y5j3FIsAdpc"},{"name":"Dead Bug — Leg Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/4RDx6vFVfWM"},{"name":"Low Arm Hover + Toe Slides","setsReps":"8 reps X 2 sets\n(R & L = one rep)","url":"https://youtu.be/G8PsdlV3z64"},{"name":"Heel Slide Leg Raise","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/gTKOSumAMmc"}],"week":"Week 5"},{"dayNum":32,"label":"Day 32","isRest":false,"restTip":null,"exercises":[{"name":"Elevated Marches","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/FNmGZxQ8UZI"},{"name":"Heel Slide Leg Raise","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/gTKOSumAMmc"},{"name":"Low Arm Hover","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/v9ao20jA3UM"},{"name":"Bird Dog with Band Pull","setsReps":"10 reps X 3 sets","url":"https://youtu.be/myftKnwQyXg"},{"name":"Knee Pushes","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/w__9x7HrdWE"},{"name":"Bear Crawl","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/E18x_oecAWo"},{"name":"Floor Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/sE8jpu6LNpQ"}],"week":"Week 5"},{"dayNum":33,"label":"Day 33","isRest":true,"restTip":"Self-care Tip: Call a friend — reconnect with someone from school or college and relive the sweet memories.","exercises":[],"week":"Week 5"},{"dayNum":34,"label":"Day 34","isRest":false,"restTip":null,"exercises":[{"name":"Knee Raises","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/Y5j3FIsAdpc"},{"name":"Low Arm Hover","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/v9ao20jA3UM"},{"name":"Ankle Lift","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/fp59I6IyNaU"},{"name":"Quadrupled Band Pull","setsReps":"10 reps X 3 sets","url":"https://youtu.be/hYp3y7WXjSo"},{"name":"Low Arm Hover + Toe Slides","setsReps":"8 reps X 2 sets\n(R & L = one rep)","url":"https://youtu.be/G8PsdlV3z64"},{"name":"Bear Hold","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/8WcmHG9EdvQ"},{"name":"Bird Dog with Leg Swing","setsReps":"8 reps X 3 sets","url":"https://youtu.be/fO7lHO-Ky_k"}],"week":"Week 5"},{"dayNum":35,"label":"Day 35","isRest":false,"restTip":null,"exercises":[{"name":"Ankle Lift","setsReps":"8 reps X 2 set\n(both sides)","url":"https://youtu.be/fp59I6IyNaU"},{"name":"Bear Hold","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/8WcmHG9EdvQ"},{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps X 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Heel Slide Leg Raise","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/gTKOSumAMmc"},{"name":"Elevated Marches","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/FNmGZxQ8UZI"},{"name":"Bear Crawl","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/E18x_oecAWo"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"}],"week":"Week 5"},{"dayNum":36,"label":"Day 36","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Goblet Squat","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Single Arm Suitcase Carry","setsReps":"60 sec X 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Romanian Deadlift","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=EWbbpcA_NiY"},{"name":"Standing Double Shoulder Press","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=YnhjOv8JdBE"},{"name":"Modified Burpee","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=dlzcaQChIKg"}],"week":"Week 6"},{"dayNum":37,"label":"Day 37","isRest":false,"restTip":null,"exercises":[{"name":"Bent Over Dumbbell Rows","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=pT55yY6mAHg"},{"name":"Dumbbell Hold Alternate Lunges","setsReps":"10 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=tTao2G494z0"},{"name":"Single Arm Suitcase Carry","setsReps":"30 sec X 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Dumbbell Goblet Squat","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Assisted Plank Dumbbell Pull Through","setsReps":"10 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=akXZpAIj1V4"}],"week":"Week 6"},{"dayNum":38,"label":"Day 38","isRest":true,"restTip":"Self-care Tip: Call a friend — reconnect with someone you haven't spoken to in a while.","exercises":[],"week":"Week 6"},{"dayNum":39,"label":"Day 39","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Goblet Squat","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Standing Double Shoulder Press","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=YnhjOv8JdBE"},{"name":"Deep Squat Pulse + Bicep Curl","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=HZHjCOjVbZ0"},{"name":"Single Arm Suitcase Carry","setsReps":"60 sec X 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Inchworm to Plank Shoulder Taps","setsReps":"10 reps X 3 sets\n(R & L = one rep)","url":"https://youtu.be/3Bsy9lbXUvE"}],"week":"Week 6"},{"dayNum":40,"label":"Day 40","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Hold Alternate Lunges","setsReps":"10 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=tTao2G494z0"},{"name":"Bent Over Dumbbell Rows","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=pT55yY6mAHg"},{"name":"Single Arm Suitcase Carry","setsReps":"60 sec X 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Heartbeat Squat","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=JA9CpU3g9q4"},{"name":"Inchworm","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=mBt3OdUlbWg"}],"week":"Week 6"},{"dayNum":41,"label":"Day 41","isRest":true,"restTip":"Self-care Tip: Meditate for 10 minutes — bring calm, focus and mental clarity to your busy life.","exercises":[],"week":"Week 6"},{"dayNum":42,"label":"Day 42","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Goblet Squat","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Standing Double Shoulder Press","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=YnhjOv8JdBE"},{"name":"Romanian Deadlift","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=EWbbpcA_NiY"},{"name":"Bent Over Dumbbell Rows","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=pT55yY6mAHg"},{"name":"Assisted Plank Dumbbell Pull Through","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=akXZpAIj1V4"}],"week":"Week 6"},{"dayNum":43,"label":"Day 43","isRest":false,"restTip":null,"exercises":[{"name":"Bodyweight Squat","setsReps":"8 reps X 3 sets","url":"https://www.youtube.com/watch?v=ejI-5q72mtI"},{"name":"Trunk Twist","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=ZsDXCkP05As"},{"name":"Dumbbell Single Arm Knee Squeeze","setsReps":"8 reps X 3 sets (each side)","url":"https://www.youtube.com/watch?v=GOcyfTZsx84"},{"name":"Triple Run Hold","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=gKZnC7gVObY"},{"name":"Bear Crawl","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/E18x_oecAWo"},{"name":"Floor Band Pull Apart","setsReps":"10 reps X 3 sets","url":"https://youtu.be/sE8jpu6LNpQ"}],"week":"Week 7"},{"dayNum":44,"label":"Day 44","isRest":false,"restTip":null,"exercises":[{"name":"Squat Walks","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=su_K7ChtFgI"},{"name":"Inchworm","setsReps":"8 reps X 3 sets","url":"https://www.youtube.com/watch?v=mBt3OdUlbWg"},{"name":"Alternating Overhead Jacks","setsReps":"30 sec X 3 sets","url":"https://www.youtube.com/watch?v=-naBleQSSrk"},{"name":"Bear Hold","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/8WcmHG9EdvQ"},{"name":"Bird Dog with Leg Swing","setsReps":"8 reps X 3 sets","url":"https://youtu.be/fO7lHO-Ky_k"}],"week":"Week 7"},{"dayNum":45,"label":"Day 45","isRest":true,"restTip":"Self-care Tip: Time for a face mask — give your skin some much-deserved TLC today.","exercises":[],"week":"Week 7"},{"dayNum":46,"label":"Day 46","isRest":false,"restTip":null,"exercises":[{"name":"Triple Run Hold","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=gKZnC7gVObY"},{"name":"Overhead Criss Cross","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=QO5BqhvupJc"},{"name":"Around the World Knee Lift","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=kr3KQcpGdpw"},{"name":"Heel Slide Leg Raise","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/gTKOSumAMmc"},{"name":"Elevated Marches","setsReps":"8 reps X 2 set\n(R & L = one rep)","url":"https://youtu.be/FNmGZxQ8UZI"}],"week":"Week 7"},{"dayNum":47,"label":"Day 47","isRest":false,"restTip":null,"exercises":[{"name":"Around the World Knee Lift","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=kr3KQcpGdpw"},{"name":"Squat Walks","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=su_K7ChtFgI"},{"name":"Dumbbell Swing & Swish","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=OsNZR1xMAQE"},{"name":"Bear Crawl","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/E18x_oecAWo"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps X 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"}],"week":"Week 7"},{"dayNum":48,"label":"Day 48","isRest":false,"restTip":null,"exercises":[{"name":"Around the World Knee Lift","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=kr3KQcpGdpw"},{"name":"Alternating Overhead Jacks","setsReps":"30 sec X 3 sets","url":"https://www.youtube.com/watch?v=-naBleQSSrk"},{"name":"Farmer's Walk","setsReps":"60 sec X 3 sets","url":"https://www.youtube.com/watch?v=RAVK-NJ8hA4"},{"name":"Weighted Side Bend","setsReps":"8 reps X 3 sets (each side)","url":"https://www.youtube.com/watch?v=BO9eBwADxNo"},{"name":"Inchworm to Plank Shoulder Taps","setsReps":"8 reps X 3 sets\n(R & L = one rep)","url":"https://youtu.be/3Bsy9lbXUvE"}],"week":"Week 7"},{"dayNum":49,"label":"Day 49","isRest":true,"restTip":"Self-care Tip: Spend 15 minutes alone — introspect or do something just for you. You are the most important person in your life.","exercises":[],"week":"Week 7"},{"dayNum":57,"label":"Day 57","isRest":true,"restTip":"Self-care Tip: Make a hearty soup — tomato or spinach — as a nutritious, filling and delicious meal.","exercises":[],"week":"Week 9"},{"dayNum":58,"label":"Day 58","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Goblet Squat","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Single Arm Suitcase Carry","setsReps":"30 sec X 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Romanian Deadlift","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=EWbbpcA_NiY"},{"name":"Standing Double Shoulder Press","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=YnhjOv8JdBE"}],"week":"Week 9"},{"dayNum":59,"label":"Day 59","isRest":false,"restTip":null,"exercises":[{"name":"Bent Over Dumbbell Rows","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=pT55yY6mAHg"},{"name":"Dumbbell Hold Alternate Lunges","setsReps":"10 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=tTao2G494z0"},{"name":"Single Arm Suitcase Carry","setsReps":"30 sec X 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Dumbbell Goblet Squat","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"}],"week":"Week 9"},{"dayNum":60,"label":"Day 60","isRest":true,"restTip":"Self-care Tip: Spend 15 minutes just introspecting or doing something you enjoy. You deserve it.","exercises":[],"week":"Week 9"},{"dayNum":61,"label":"Day 61","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Goblet Squat","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Standing Double Shoulder Press","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=YnhjOv8JdBE"},{"name":"Single Arm Suitcase Carry","setsReps":"30 sec X 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Deep Squat Pulse + Bicep Curl","setsReps":"10 reps X 2 sets","url":"https://www.youtube.com/watch?v=HZHjCOjVbZ0"}],"week":"Week 9"},{"dayNum":62,"label":"Day 62","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Hold Alternate Lunges","setsReps":"10 reps X 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=tTao2G494z0"},{"name":"Bent Over Dumbbell Rows","setsReps":"10 reps X 3 sets","url":"https://www.youtube.com/watch?v=pT55yY6mAHg"},{"name":"Single Arm Suitcase Carry","setsReps":"30 sec X 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Heartbeat Squat","setsReps":"10 reps X 2 sets","url":"https://www.youtube.com/watch?v=JA9CpU3g9q4"}],"week":"Week 9"},{"dayNum":63,"label":"Day 63","isRest":true,"restTip":"Self-care Tip: Put on a feel-good film — one you know will bring a smile to your face. You've earned it!","exercises":[],"week":"Week 9"}];
+/* ════════════════════════════════════════════════════
+   WORKOUT DATA — 56 days across Weeks 1–7 + Week 9
+════════════════════════════════════════════════════ */
+const WD=[{"dayNum":1,"label":"Day 1","isRest":false,"restTip":null,"exercises":[{"name":"CB Cross Legged","setsReps":"8 reps × 1 set","url":"https://youtu.be/qWGjDmoMdlI"},{"name":"CB Lying Down","setsReps":"8 reps × 1 set","url":"https://youtu.be/6C2zetY58Ps"},{"name":"The Heel Slide","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/YON59r7nBPM"},{"name":"Clamshell","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/MzkpP0JixT8"},{"name":"Single Leg Heel Taps","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/nO3To7K-Zuw"},{"name":"Advanced Glute Bridge","setsReps":"8 reps × 2 sets","url":"https://youtu.be/pSi80dwMGiM"}],"week":"Week 1"},{"dayNum":2,"label":"Day 2","isRest":false,"restTip":null,"exercises":[{"name":"CB Lying Down","setsReps":"8 reps × 1 set","url":"https://youtu.be/6C2zetY58Ps"},{"name":"The Heel Slide","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/YON59r7nBPM"},{"name":"Advanced Glute Bridge","setsReps":"8 reps × 3 sets","url":"https://youtu.be/pSi80dwMGiM"},{"name":"Open Book","setsReps":"8 reps × 3 sets","url":"https://youtu.be/F6xwouE1Xtk"},{"name":"Advanced Clam Shell","setsReps":"8 reps × 3 sets\n(both sides)","url":"https://youtu.be/kfkA1XtBcjs"}],"week":"Week 1"},{"dayNum":3,"label":"Day 3","isRest":true,"restTip":"Self-care Tip: Stick to one cup of coffee or tea and drink 8 glasses of water today. Your body and skin will thank you.","exercises":[],"week":"Week 1"},{"dayNum":4,"label":"Day 4","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"8 reps × 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Quadrupled Palm Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/DkFgRAS0G6Y"},{"name":"Advanced Glute Bridge","setsReps":"8 reps × 3 sets","url":"https://youtu.be/pSi80dwMGiM"},{"name":"Quadrupled Knee Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/X9HRk2m36Nc"},{"name":"Open Book","setsReps":"8 reps × 3 sets","url":"https://youtu.be/F6xwouE1Xtk"}],"week":"Week 1"},{"dayNum":5,"label":"Day 5","isRest":false,"restTip":null,"exercises":[{"name":"The Heel Slide","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://youtu.be/YON59r7nBPM"},{"name":"Quadrupled Palm Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/DkFgRAS0G6Y"},{"name":"Advanced Clam Shell","setsReps":"8 reps × 3 sets\n(both sides)","url":"https://youtu.be/kfkA1XtBcjs"},{"name":"Quadrupled Knee Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/X9HRk2m36Nc"},{"name":"Advanced Glute Bridge","setsReps":"8 reps × 3 sets","url":"https://youtu.be/pSi80dwMGiM"}],"week":"Week 1"},{"dayNum":6,"label":"Day 6","isRest":true,"restTip":"Self-care Tip: Write a gratitude journal — jot down 3 things you're thankful for today.","exercises":[],"week":"Week 1"},{"dayNum":7,"label":"Day 7","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"4 reps × 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Quadrupled Palm Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/DkFgRAS0G6Y"},{"name":"Advanced Glute Bridge","setsReps":"8 reps × 3 sets","url":"https://youtu.be/pSi80dwMGiM"},{"name":"Quadrupled Knee Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/X9HRk2m36Nc"},{"name":"Single Leg Heel Taps","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://youtu.be/nO3To7K-Zuw"}],"week":"Week 1"},{"dayNum":8,"label":"Day 8","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"8 reps × 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Modified Bird Dog Leg Reach","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/9ti8vHT-WJE"},{"name":"Advanced Bird Dog Leg Reach","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/tCNC0o0N1IE"},{"name":"Open Book","setsReps":"8 reps × 2 sets","url":"https://youtu.be/F6xwouE1Xtk"},{"name":"Fire Hydrant","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/PSTGmTJLKzE"}],"week":"Week 2"},{"dayNum":9,"label":"Day 9","isRest":true,"restTip":"Self-care Tip: Take a social media break today. Step away to improve your mood and use the time productively.","exercises":[],"week":"Week 2"},{"dayNum":10,"label":"Day 10","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"4 reps × 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Quadrupled Palm & Knee Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/_PbdPnTCiwg"},{"name":"Advanced Glute Bridge","setsReps":"8 reps × 3 sets","url":"https://youtu.be/pSi80dwMGiM"},{"name":"Modified Bird Dog Arm Reach","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/9ti8vHT-WJE"},{"name":"Advanced Bird Dog Leg Reach","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/tCNC0o0N1IE"}],"week":"Week 2"},{"dayNum":11,"label":"Day 11","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"4 reps × 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Bird Dog Reach","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/U04B8ewd7_s"},{"name":"Advanced Glute Bridge","setsReps":"8 reps × 3 sets","url":"https://youtu.be/pSi80dwMGiM"},{"name":"Bird Dog with Leg Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/xnbwzEfGH9w"},{"name":"Advanced Fire Hydrant","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/EALEhqzDiuA"}],"week":"Week 2"},{"dayNum":12,"label":"Day 12","isRest":true,"restTip":"Self-care Tip: Switch off your phone for 30 minutes — spend that time doing something you enjoy without distractions.","exercises":[],"week":"Week 2"},{"dayNum":13,"label":"Day 13","isRest":false,"restTip":null,"exercises":[{"name":"CB Quadrupled","setsReps":"8 reps × 1 set","url":"https://youtu.be/wC-Ta7A_nHs"},{"name":"Bird Dog Reach","setsReps":"8 reps × 1 set\n(R & L = one rep)","url":"https://youtu.be/U04B8ewd7_s"},{"name":"Bird Dog with Leg Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/xnbwzEfGH9w"},{"name":"Clamshell","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/MzkpP0JixT8"},{"name":"Fire Hydrant","setsReps":"8 reps × 3 sets\n(both sides)","url":"https://youtu.be/PSTGmTJLKzE"}],"week":"Week 2"},{"dayNum":14,"label":"Day 14","isRest":false,"restTip":null,"exercises":[{"name":"Clamshell","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/MzkpP0JixT8"},{"name":"Quadrupled Palm & Knee Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/_PbdPnTCiwg"},{"name":"The Heel Slide","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/YON59r7nBPM"},{"name":"Fire Hydrant","setsReps":"8 reps × 1 set\n(R & L = one rep)","url":"https://youtu.be/PSTGmTJLKzE"},{"name":"Advanced Fire Hydrant","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/EALEhqzDiuA"}],"week":"Week 2"},{"dayNum":15,"label":"Day 15","isRest":true,"restTip":"Self-care Tip: Moisturise! Bring out the scented lotions and body butters and indulge in some TLC.","exercises":[],"week":"Week 3"},{"dayNum":16,"label":"Day 16","isRest":false,"restTip":null,"exercises":[{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Overhand Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/quP1kiFvBxQ"},{"name":"Modified Bird Dog Arm Reach","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/9ti8vHT-WJE"},{"name":"Advanced Bird Dog Leg Reach","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/tCNC0o0N1IE"}],"week":"Week 3"},{"dayNum":17,"label":"Day 17","isRest":false,"restTip":null,"exercises":[{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Dead Bug — Leg Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/4RDx6vFVfWM"},{"name":"Banded Walk","setsReps":"10 reps × 3 sets","url":"https://youtu.be/S1G_uELQp6E"},{"name":"Bird Dog with Leg Lift","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/xnbwzEfGH9w"},{"name":"Advanced Fire Hydrant","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/EALEhqzDiuA"}],"week":"Week 3"},{"dayNum":18,"label":"Day 18","isRest":true,"restTip":"Self-care Tip: Spend 15 minutes alone — introspecting or doing something you truly enjoy. You deserve it.","exercises":[],"week":"Week 3"},{"dayNum":19,"label":"Day 19","isRest":false,"restTip":null,"exercises":[{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps × 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Floor Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/sE8jpu6LNpQ"},{"name":"Clamshell","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/MzkpP0JixT8"},{"name":"Fire Hydrant","setsReps":"8 reps × 3 sets\n(both sides)","url":"https://youtu.be/PSTGmTJLKzE"}],"week":"Week 3"},{"dayNum":20,"label":"Day 20","isRest":false,"restTip":null,"exercises":[{"name":"Bird Dog with Band Pull","setsReps":"10 reps × 3 sets","url":"https://youtu.be/myftKnwQyXg"},{"name":"Bird Dog with Leg Swing","setsReps":"10 reps × 3 sets","url":"https://youtu.be/fO7lHO-Ky_k"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Fire Hydrant","setsReps":"8 reps × 1 set\n(R & L = one rep)","url":"https://youtu.be/PSTGmTJLKzE"},{"name":"Advanced Fire Hydrant","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/EALEhqzDiuA"}],"week":"Week 3"},{"dayNum":21,"label":"Day 21","isRest":false,"restTip":null,"exercises":[{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Dead Bug — Leg Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/4RDx6vFVfWM"},{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps × 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Double Squat with Band","setsReps":"10 reps × 3 sets","url":"https://youtu.be/yNCwgLjz7o8"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"}],"week":"Week 3"},{"dayNum":22,"label":"Day 22","isRest":true,"restTip":"Self-care Tip: Drink 8 glasses of water today and cut back on caffeine.","exercises":[],"week":"Week 4"},{"dayNum":23,"label":"Day 23","isRest":false,"restTip":null,"exercises":[{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Overhand Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/quP1kiFvBxQ"},{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps × 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Double Squat with Band","setsReps":"10 reps × 3 sets","url":"https://youtu.be/yNCwgLjz7o8"}],"week":"Week 4"},{"dayNum":24,"label":"Day 24","isRest":false,"restTip":null,"exercises":[{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Dead Bug — Leg Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/4RDx6vFVfWM"},{"name":"Banded Walk","setsReps":"10 reps × 3 sets","url":"https://youtu.be/S1G_uELQp6E"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Bird Dog with Band Pull","setsReps":"10 reps × 3 sets","url":"https://youtu.be/myftKnwQyXg"}],"week":"Week 4"},{"dayNum":25,"label":"Day 25","isRest":true,"restTip":"Self-care Tip: Call a friend — reconnect with someone from school or college and relive the sweet memories.","exercises":[],"week":"Week 4"},{"dayNum":26,"label":"Day 26","isRest":false,"restTip":null,"exercises":[{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps × 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Floor Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/sE8jpu6LNpQ"},{"name":"Quadrupled Band Pull","setsReps":"10 reps × 3 sets","url":"https://youtu.be/hYp3y7WXjSo"},{"name":"Banded Squat","setsReps":"10 reps × 3 sets","url":"https://youtu.be/7uX2Hy0VdMg"}],"week":"Week 4"},{"dayNum":27,"label":"Day 27","isRest":false,"restTip":null,"exercises":[{"name":"Bird Dog with Band Pull","setsReps":"10 reps × 3 sets","url":"https://youtu.be/myftKnwQyXg"},{"name":"Bird Dog with Leg Swing","setsReps":"10 reps × 3 sets","url":"https://youtu.be/fO7lHO-Ky_k"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Banded Squat","setsReps":"10 reps × 3 sets","url":"https://youtu.be/7uX2Hy0VdMg"},{"name":"Banded Walk","setsReps":"10 reps × 3 sets","url":"https://youtu.be/S1G_uELQp6E"}],"week":"Week 4"},{"dayNum":28,"label":"Day 28","isRest":false,"restTip":null,"exercises":[{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/mmaAwVfMhyc"},{"name":"Dead Bug — Leg Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/4RDx6vFVfWM"},{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps × 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Double Squat with Band","setsReps":"10 reps × 3 sets","url":"https://youtu.be/yNCwgLjz7o8"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"}],"week":"Week 4"},{"dayNum":29,"label":"Day 29","isRest":true,"restTip":"Self-care Tip: Family time! Bring out the board games, pop some popcorn, and spend quality time together.","exercises":[],"week":"Week 5"},{"dayNum":30,"label":"Day 30","isRest":false,"restTip":null,"exercises":[{"name":"Chair Squeeze","setsReps":"8 reps × 2 sets","url":"https://youtu.be/4bLs7Y7XZvA"},{"name":"Elevated Marches","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/FNmGZxQ8UZI"},{"name":"Knee Pushes","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/w__9x7HrdWE"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"},{"name":"Low Arm Hover","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/v9ao20jA3UM"},{"name":"Ankle Lift","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/fp59I6IyNaU"},{"name":"Dead Bugs — Arm Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/mmaAwVfMhyc"}],"week":"Week 5"},{"dayNum":31,"label":"Day 31","isRest":false,"restTip":null,"exercises":[{"name":"Chair Squeeze","setsReps":"8 reps × 2 sets","url":"https://youtu.be/4bLs7Y7XZvA"},{"name":"Bear Hold","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/8WcmHG9EdvQ"},{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps × 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Knee Raises","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/Y5j3FIsAdpc"},{"name":"Dead Bug — Leg Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/4RDx6vFVfWM"},{"name":"Low Arm Hover + Toe Slides","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/G8PsdlV3z64"},{"name":"Heel Slide Leg Raise","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/gTKOSumAMmc"}],"week":"Week 5"},{"dayNum":32,"label":"Day 32","isRest":false,"restTip":null,"exercises":[{"name":"Elevated Marches","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/FNmGZxQ8UZI"},{"name":"Heel Slide Leg Raise","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/gTKOSumAMmc"},{"name":"Low Arm Hover","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/v9ao20jA3UM"},{"name":"Bird Dog with Band Pull","setsReps":"10 reps × 3 sets","url":"https://youtu.be/myftKnwQyXg"},{"name":"Knee Pushes","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/w__9x7HrdWE"},{"name":"Bear Crawl","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/E18x_oecAWo"},{"name":"Floor Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/sE8jpu6LNpQ"}],"week":"Week 5"},{"dayNum":33,"label":"Day 33","isRest":true,"restTip":"Self-care Tip: Call a friend — reconnect with someone you haven't spoken to in a while.","exercises":[],"week":"Week 5"},{"dayNum":34,"label":"Day 34","isRest":false,"restTip":null,"exercises":[{"name":"Knee Raises","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/Y5j3FIsAdpc"},{"name":"Low Arm Hover","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/v9ao20jA3UM"},{"name":"Ankle Lift","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/fp59I6IyNaU"},{"name":"Quadrupled Band Pull","setsReps":"10 reps × 3 sets","url":"https://youtu.be/hYp3y7WXjSo"},{"name":"Low Arm Hover + Toe Slides","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/G8PsdlV3z64"},{"name":"Bear Hold","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/8WcmHG9EdvQ"},{"name":"Bird Dog with Leg Swing","setsReps":"8 reps × 3 sets","url":"https://youtu.be/fO7lHO-Ky_k"}],"week":"Week 5"},{"dayNum":35,"label":"Day 35","isRest":false,"restTip":null,"exercises":[{"name":"Ankle Lift","setsReps":"8 reps × 2 sets\n(both sides)","url":"https://youtu.be/fp59I6IyNaU"},{"name":"Bear Hold","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/8WcmHG9EdvQ"},{"name":"Side-Lying Leg Lift with Band","setsReps":"10 reps × 3 sets (each side)","url":"https://youtu.be/8mpdSe1Ava4"},{"name":"Heel Slide Leg Raise","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/gTKOSumAMmc"},{"name":"Elevated Marches","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/FNmGZxQ8UZI"},{"name":"Bear Crawl","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/E18x_oecAWo"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"}],"week":"Week 5"},{"dayNum":36,"label":"Day 36","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Goblet Squat","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Single Arm Suitcase Carry","setsReps":"60 sec × 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Romanian Deadlift","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=EWbbpcA_NiY"},{"name":"Standing Double Shoulder Press","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=YnhjOv8JdBE"},{"name":"Modified Burpee","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=dlzcaQChIKg"}],"week":"Week 6"},{"dayNum":37,"label":"Day 37","isRest":false,"restTip":null,"exercises":[{"name":"Bent Over Dumbbell Rows","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=pT55yY6mAHg"},{"name":"Dumbbell Hold Alternate Lunges","setsReps":"10 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=tTao2G494z0"},{"name":"Single Arm Suitcase Carry","setsReps":"30 sec × 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Dumbbell Goblet Squat","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Assisted Plank Dumbbell Pull Through","setsReps":"10 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=akXZpAIj1V4"}],"week":"Week 6"},{"dayNum":38,"label":"Day 38","isRest":true,"restTip":"Self-care Tip: Call a friend — reconnect with someone you haven't spoken to in a while.","exercises":[],"week":"Week 6"},{"dayNum":39,"label":"Day 39","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Goblet Squat","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Standing Double Shoulder Press","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=YnhjOv8JdBE"},{"name":"Deep Squat Pulse + Bicep Curl","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=HZHjCOjVbZ0"},{"name":"Single Arm Suitcase Carry","setsReps":"60 sec × 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Inchworm to Plank Shoulder Taps","setsReps":"10 reps × 3 sets\n(R & L = one rep)","url":"https://youtu.be/3Bsy9lbXUvE"}],"week":"Week 6"},{"dayNum":40,"label":"Day 40","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Hold Alternate Lunges","setsReps":"10 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=tTao2G494z0"},{"name":"Bent Over Dumbbell Rows","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=pT55yY6mAHg"},{"name":"Single Arm Suitcase Carry","setsReps":"60 sec × 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Heartbeat Squat","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=JA9CpU3g9q4"},{"name":"Inchworm","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=mBt3OdUlbWg"}],"week":"Week 6"},{"dayNum":41,"label":"Day 41","isRest":true,"restTip":"Self-care Tip: Meditate for 10 minutes — bring calm, focus and mental clarity to your day.","exercises":[],"week":"Week 6"},{"dayNum":42,"label":"Day 42","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Goblet Squat","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Standing Double Shoulder Press","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=YnhjOv8JdBE"},{"name":"Romanian Deadlift","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=EWbbpcA_NiY"},{"name":"Bent Over Dumbbell Rows","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=pT55yY6mAHg"},{"name":"Assisted Plank Dumbbell Pull Through","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=akXZpAIj1V4"}],"week":"Week 6"},{"dayNum":43,"label":"Day 43","isRest":false,"restTip":null,"exercises":[{"name":"Bodyweight Squat","setsReps":"8 reps × 3 sets","url":"https://www.youtube.com/watch?v=ejI-5q72mtI"},{"name":"Trunk Twist","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=ZsDXCkP05As"},{"name":"Dumbbell Single Arm Knee Squeeze","setsReps":"8 reps × 3 sets (each side)","url":"https://www.youtube.com/watch?v=GOcyfTZsx84"},{"name":"Triple Run Hold","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=gKZnC7gVObY"},{"name":"Bear Crawl","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/E18x_oecAWo"},{"name":"Floor Band Pull Apart","setsReps":"10 reps × 3 sets","url":"https://youtu.be/sE8jpu6LNpQ"}],"week":"Week 7"},{"dayNum":44,"label":"Day 44","isRest":false,"restTip":null,"exercises":[{"name":"Squat Walks","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=su_K7ChtFgI"},{"name":"Inchworm","setsReps":"8 reps × 3 sets","url":"https://www.youtube.com/watch?v=mBt3OdUlbWg"},{"name":"Alternating Overhead Jacks","setsReps":"30 sec × 3 sets","url":"https://www.youtube.com/watch?v=-naBleQSSrk"},{"name":"Bear Hold","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/8WcmHG9EdvQ"},{"name":"Bird Dog with Leg Swing","setsReps":"8 reps × 3 sets","url":"https://youtu.be/fO7lHO-Ky_k"}],"week":"Week 7"},{"dayNum":45,"label":"Day 45","isRest":true,"restTip":"Self-care Tip: Time for a face mask — give your skin some much-deserved TLC today.","exercises":[],"week":"Week 7"},{"dayNum":46,"label":"Day 46","isRest":false,"restTip":null,"exercises":[{"name":"Triple Run Hold","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=gKZnC7gVObY"},{"name":"Overhead Criss Cross","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=QO5BqhvupJc"},{"name":"Around the World Knee Lift","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=kr3KQcpGdpw"},{"name":"Heel Slide Leg Raise","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/gTKOSumAMmc"},{"name":"Elevated Marches","setsReps":"8 reps × 2 sets\n(R & L = one rep)","url":"https://youtu.be/FNmGZxQ8UZI"}],"week":"Week 7"},{"dayNum":47,"label":"Day 47","isRest":false,"restTip":null,"exercises":[{"name":"Around the World Knee Lift","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=kr3KQcpGdpw"},{"name":"Squat Walks","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=su_K7ChtFgI"},{"name":"Dumbbell Swing & Swish","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=OsNZR1xMAQE"},{"name":"Bear Crawl","setsReps":"30 sec × 3 (10 sec rest between)","url":"https://youtu.be/E18x_oecAWo"},{"name":"Resistance Band Glute Bridge","setsReps":"10 reps × 3 sets","url":"https://youtu.be/VN4Rn0xSbLo"}],"week":"Week 7"},{"dayNum":48,"label":"Day 48","isRest":false,"restTip":null,"exercises":[{"name":"Around the World Knee Lift","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=kr3KQcpGdpw"},{"name":"Alternating Overhead Jacks","setsReps":"30 sec × 3 sets","url":"https://www.youtube.com/watch?v=-naBleQSSrk"},{"name":"Farmer's Walk","setsReps":"60 sec × 3 sets","url":"https://www.youtube.com/watch?v=RAVK-NJ8hA4"},{"name":"Weighted Side Bend","setsReps":"8 reps × 3 sets (each side)","url":"https://www.youtube.com/watch?v=BO9eBwADxNo"},{"name":"Inchworm to Plank Shoulder Taps","setsReps":"8 reps × 3 sets\n(R & L = one rep)","url":"https://youtu.be/3Bsy9lbXUvE"}],"week":"Week 7"},{"dayNum":49,"label":"Day 49","isRest":true,"restTip":"Self-care Tip: Spend 15 minutes alone — introspect or do something just for you. You are the most important person in your life.","exercises":[],"week":"Week 7"},{"dayNum":57,"label":"Day 57","isRest":true,"restTip":"Self-care Tip: Make a hearty tomato or spinach soup — nutritious, filling and delicious.","exercises":[],"week":"Week 9"},{"dayNum":58,"label":"Day 58","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Goblet Squat","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Single Arm Suitcase Carry","setsReps":"30 sec × 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Romanian Deadlift","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=EWbbpcA_NiY"},{"name":"Standing Double Shoulder Press","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=YnhjOv8JdBE"}],"week":"Week 9"},{"dayNum":59,"label":"Day 59","isRest":false,"restTip":null,"exercises":[{"name":"Bent Over Dumbbell Rows","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=pT55yY6mAHg"},{"name":"Dumbbell Hold Alternate Lunges","setsReps":"10 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=tTao2G494z0"},{"name":"Single Arm Suitcase Carry","setsReps":"30 sec × 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Dumbbell Goblet Squat","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"}],"week":"Week 9"},{"dayNum":60,"label":"Day 60","isRest":true,"restTip":"Self-care Tip: Spend 15 minutes introspecting or doing something you enjoy.","exercises":[],"week":"Week 9"},{"dayNum":61,"label":"Day 61","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Goblet Squat","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=tnYs6cHDvVw"},{"name":"Standing Double Shoulder Press","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=YnhjOv8JdBE"},{"name":"Single Arm Suitcase Carry","setsReps":"30 sec × 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Deep Squat Pulse + Bicep Curl","setsReps":"10 reps × 2 sets","url":"https://www.youtube.com/watch?v=HZHjCOjVbZ0"}],"week":"Week 9"},{"dayNum":62,"label":"Day 62","isRest":false,"restTip":null,"exercises":[{"name":"Dumbbell Hold Alternate Lunges","setsReps":"10 reps × 3 sets\n(R & L = one rep)","url":"https://www.youtube.com/watch?v=tTao2G494z0"},{"name":"Bent Over Dumbbell Rows","setsReps":"10 reps × 3 sets","url":"https://www.youtube.com/watch?v=pT55yY6mAHg"},{"name":"Single Arm Suitcase Carry","setsReps":"30 sec × 3 sets (each side)","url":"https://www.youtube.com/watch?v=WKCAXHvJ5EM"},{"name":"Heartbeat Squat","setsReps":"10 reps × 2 sets","url":"https://www.youtube.com/watch?v=JA9CpU3g9q4"}],"week":"Week 9"},{"dayNum":63,"label":"Day 63","isRest":true,"restTip":"Self-care Tip: Put on a feel-good film — one you know will bring a smile to your face. You've earned it.","exercises":[],"week":"Week 9"}];
 
 const WARMUP_URL  = 'https://www.youtube.com/watch?v=XGssPBE5Bz4';
 const COOLDOWN_URL = 'https://www.youtube.com/watch?v=zC5TAVkFRZU';
 
-const FB_CFG = {
+/* ─── Unsplash image sets ─── */
+const WEEK_IMG = {
+  'Week 1': 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=75&auto=format&fit=crop',
+  'Week 2': 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=75&auto=format&fit=crop',
+  'Week 3': 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=75&auto=format&fit=crop',
+  'Week 4': 'https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=800&q=75&auto=format&fit=crop',
+  'Week 5': 'https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&q=75&auto=format&fit=crop',
+  'Week 6': 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&q=75&auto=format&fit=crop',
+  'Week 7': 'https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800&q=75&auto=format&fit=crop',
+  'Week 9': 'https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=800&q=75&auto=format&fit=crop',
+};
+const REST_IMG = 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=75&auto=format&fit=crop';
+const PROFILE_BG = 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=900&q=75&auto=format&fit=crop';
+
+/* Exercise thumbnail by keyword bucket */
+function exThumb(name) {
+  const n = name.toLowerCase();
+  if (/glute|bridge/.test(n))
+    return 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=160&h=160&q=70&auto=format&fit=crop';
+  if (/squat|lunge|deadlift|rdl|goblet/.test(n))
+    return 'https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=160&h=160&q=70&auto=format&fit=crop';
+  if (/band|banded|resistance/.test(n))
+    return 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=160&h=160&q=70&auto=format&fit=crop';
+  if (/row|press|shoulder|carry|bicep|dumbbell|farmer|swing/.test(n))
+    return 'https://images.unsplash.com/photo-1576678927484-cc907957088c?w=160&h=160&q=70&auto=format&fit=crop';
+  if (/plank|bear|crawl|burpee|inchworm/.test(n))
+    return 'https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=160&h=160&q=70&auto=format&fit=crop';
+  if (/bird|fire|clam|hydrant|quadrupled/.test(n))
+    return 'https://images.unsplash.com/photo-1530822847156-5df684ec5ee1?w=160&h=160&q=70&auto=format&fit=crop';
+  if (/heel|slide|leg|ankle|knee|march|walk|jack|run|twist|trunk|around|criss|triple|hover/.test(n))
+    return 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=160&h=160&q=70&auto=format&fit=crop';
+  if (/open|book|stretch|yoga/.test(n))
+    return 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=160&h=160&q=70&auto=format&fit=crop';
+  return 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=160&h=160&q=70&auto=format&fit=crop';
+}
+
+/* ════════════════════════════════════════════════════
+   FIREBASE
+════════════════════════════════════════════════════ */
+const FB = {
   apiKey:            "AIzaSyAYuCRPKJYIaRnRy4Yycs3r9ZnHlaeRIxw",
   authDomain:        "strong-bod.firebaseapp.com",
   projectId:         "strong-bod",
@@ -1045,562 +1196,720 @@ const FB_CFG = {
   messagingSenderId: "124134095155",
   appId:             "1:124134095155:web:1284a329355b51af2ee646"
 };
-
 let fbAuth, fbDb;
 try {
-  firebase.initializeApp(FB_CFG);
+  firebase.initializeApp(FB);
   fbAuth = firebase.auth();
   fbDb   = firebase.firestore();
   fbDb.enablePersistence({ synchronizeTabs: true }).catch(() => {});
-} catch(e) { console.error('Firebase init:', e) }
+} catch(e) { console.error('Firebase:', e) }
 
+/* ════════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════════ */
 const ST = {
-  user:       null,
-  isGuest:    false,
-  dayIdx:     0,
-  tab:        'home',
-  openVids:   new Set(),
-  syncing:    false,
-  authMode:   'signin',
+  user: null, isGuest: false,
+  dayIdx: 0, tab: 'home',
+  openVids: new Set(),
+  syncing: false, authMode: 'signin',
   data: {
     profile:  { name: '', startDate: null },
     progress: {},
-    settings: { theme: 'system' }
+    settings: { theme: 'dark' }
   }
 };
 
-const LS = 'mbs_v3';
-function lsSave() { try { localStorage.setItem(LS, JSON.stringify(ST.data)) } catch(e){} }
-function lsLoad() { try { return JSON.parse(localStorage.getItem(LS)||'null') } catch(e){ return null } }
-function lsMerge(remote) {
-  ST.data.profile  = { ...ST.data.profile,  ...(remote.profile  || {}) };
-  ST.data.settings = { ...ST.data.settings, ...(remote.settings || {}) };
-  Object.entries(remote.progress || {}).forEach(([k,v]) => { if (v) ST.data.progress[k] = true });
+/* ════════════════════════════════════════════════════
+   LOCAL STORAGE
+════════════════════════════════════════════════════ */
+const LS = 'mbs_v4';
+const lsSave = () => { try { localStorage.setItem(LS, JSON.stringify(ST.data)) } catch(e){} };
+const lsLoad = () => { try { return JSON.parse(localStorage.getItem(LS)||'null') } catch(e){ return null } };
+function lsMerge(r) {
+  ST.data.profile  = { ...ST.data.profile,  ...(r.profile  || {}) };
+  ST.data.settings = { ...ST.data.settings, ...(r.settings || {}) };
+  Object.entries(r.progress || {}).forEach(([k,v]) => { if(v) ST.data.progress[k]=true });
 }
 
-const userDoc = () => fbDb?.collection('users').doc(ST.user?.uid);
-
+/* ════════════════════════════════════════════════════
+   FIRESTORE
+════════════════════════════════════════════════════ */
+const uDoc = () => fbDb?.collection('users').doc(ST.user?.uid);
 async function fsLoad() {
   if (!fbDb || !ST.user) return;
   try {
-    const snap = await userDoc().get();
-    if (snap.exists) lsMerge(snap.data());
-    else await userDoc().set({ ...ST.data, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    const s = await uDoc().get();
+    if (s.exists) lsMerge(s.data());
+    else await uDoc().set({ ...ST.data, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
     lsSave();
-  } catch(e) { console.warn('Firestore load (offline?):', e) }
+  } catch(e) { console.warn('fsLoad:', e) }
 }
-
 async function fsSave(patch) {
-  Object.assign(ST.data, patch);
-  lsSave();
+  Object.assign(ST.data, patch); lsSave();
   if (!fbDb || !ST.user) return;
   try {
-    await userDoc().set(
-      { ...ST.data, lastSync: firebase.firestore.FieldValue.serverTimestamp() },
-      { merge: true }
-    );
-  } catch(e) { console.warn('Firestore save (offline?):', e) }
+    await uDoc().set({ ...ST.data, lastSync: firebase.firestore.FieldValue.serverTimestamp() }, { merge:true });
+  } catch(e) {}
 }
-
 async function fsToggle(dayNum, exIdx) {
   const key = `d${dayNum}e${exIdx}`;
   ST.data.progress[key] = !ST.data.progress[key];
   lsSave();
   if (!fbDb || !ST.user) return;
-  try {
-    await userDoc().update({
-      [`progress.${key}`]: ST.data.progress[key],
-      lastSync: firebase.firestore.FieldValue.serverTimestamp()
-    });
-  } catch(e) {}
+  try { await uDoc().update({ [`progress.${key}`]: ST.data.progress[key], lastSync: firebase.firestore.FieldValue.serverTimestamp() }) } catch(e) {}
 }
 
+/* ════════════════════════════════════════════════════
+   UTILS
+════════════════════════════════════════════════════ */
 const isoToday    = () => new Date().toISOString().slice(0,10);
-const daysBetween = (a,b) => Math.floor((new Date(b) - new Date(a)) / 86400000);
-const ytId        = url => { const m=(url||'').match(/(?:youtu\.be\/|v=|v\/|embed\/)([A-Za-z0-9_-]{11})/); return m?m[1]:null; };
+const daysBetween = (a,b) => Math.floor((new Date(b)-new Date(a))/86400000);
+const ytId        = u => { const m=(u||'').match(/(?:youtu\.be\/|v=|v\/|embed\/)([A-Za-z0-9_-]{11})/); return m?m[1]:null };
 const initials    = s => (s||'?').split(' ').map(p=>p[0]).join('').toUpperCase().slice(0,2);
-
-function todayDayIdx() {
+function todayIdx() {
   const sd = ST.data.profile.startDate;
   if (!sd) return 0;
-  const d = daysBetween(sd, isoToday());
-  return Math.max(0, Math.min(d, WD.length - 1));
+  return Math.max(0, Math.min(daysBetween(sd, isoToday()), WD.length-1));
 }
-
-function isDayDone(dayNum) {
-  const d = WD.find(x => x.dayNum === dayNum);
-  if (!d || d.isRest || !d.exercises.length) return true;
-  return d.exercises.every((_, i) => ST.data.progress[`d${dayNum}e${i}`]);
+function isDayDone(n) {
+  const d = WD.find(x=>x.dayNum===n);
+  if (!d||d.isRest||!d.exercises.length) return true;
+  return d.exercises.every((_,i)=>ST.data.progress[`d${n}e${i}`]);
 }
-
-function dayPct(dayNum) {
-  const d = WD.find(x => x.dayNum === dayNum);
-  if (!d || d.isRest || !d.exercises.length) return 100;
-  const done = d.exercises.filter((_, i) => ST.data.progress[`d${dayNum}e${i}`]).length;
-  return Math.round((done / d.exercises.length) * 100);
+function dayPct(n) {
+  const d = WD.find(x=>x.dayNum===n);
+  if (!d||d.isRest||!d.exercises.length) return 100;
+  return Math.round(d.exercises.filter((_,i)=>ST.data.progress[`d${n}e${i}`]).length/d.exercises.length*100);
 }
+function wkN(w) { return parseInt((w.match(/\d+/)||['0'])[0]) }
 
-function wkNum(week) { return parseInt((week.match(/\d+/)||['0'])[0]); }
-
+/* ════════════════════════════════════════════════════
+   SCREENS
+════════════════════════════════════════════════════ */
 function show(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
+/* ════════════════════════════════════════════════════
+   AUTH
+════════════════════════════════════════════════════ */
+function showEmailForm(v) {
+  document.getElementById('email-form').classList.toggle('hidden',!v);
+  document.getElementById('auth-default').classList.toggle('hidden',v);
+  document.getElementById('auth-err').classList.add('hidden');
+  if (!v) { ST.authMode='signin'; _syncMode() }
+}
 function togglePassVis() {
-  const inp = document.getElementById('f-pass');
-  const ico = inp.nextElementSibling.nextElementSibling;
-  inp.type = inp.type === 'password' ? 'text' : 'password';
-  ico.textContent = inp.type === 'password' ? 'visibility' : 'visibility_off';
+  const i=document.getElementById('f-pass');
+  const ic=i.nextElementSibling.nextElementSibling.querySelector('.material-icons-round');
+  i.type = i.type==='password'?'text':'password';
+  ic.textContent = i.type==='password'?'visibility':'visibility_off';
 }
-
-function toggleAuthMode() {
-  ST.authMode = ST.authMode === 'signin' ? 'signup' : 'signin';
-  _syncAuthMode();
+function toggleMode() { ST.authMode=ST.authMode==='signin'?'signup':'signin'; _syncMode() }
+function _syncMode() {
+  const s=ST.authMode==='signup';
+  document.getElementById('email-btn').textContent = s?'Create Account':'Sign In';
+  document.getElementById('mode-btn').textContent  = s?'Already have an account? Sign in':'Create account';
+  document.getElementById('f-name-wrap').classList.toggle('hidden',!s);
 }
-
-function _syncAuthMode() {
-  const s = ST.authMode === 'signup';
-  document.getElementById('email-submit-btn').textContent = s ? 'Create Account' : 'Sign In';
-  document.getElementById('toggle-auth-mode').textContent = s ? 'Already have an account? Sign in' : 'Create account';
-  document.getElementById('f-name-wrap').classList.toggle('hidden', !s);
+function showAuthErr(m) { const e=document.getElementById('auth-err'); e.textContent=m; e.classList.remove('hidden') }
+async function authGoogle() {
+  try { await fbAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()) }
+  catch(e) { showAuthErr(e.code==='auth/popup-blocked'?'Pop-up blocked — please allow pop-ups for this site.':e.message) }
 }
-
-function showAuthErr(msg) {
-  const e = document.getElementById('auth-error');
-  e.textContent = msg; e.classList.remove('hidden');
-}
-
-async function authEmailSubmit() {
-  const email = document.getElementById('f-email').value.trim();
-  const pass  = document.getElementById('f-pass').value;
-  const name  = document.getElementById('f-name').value.trim();
-  if (!email || !pass) { showAuthErr('Please enter your email and password.'); return }
-  const btn = document.getElementById('email-submit-btn');
-  btn.disabled = true; btn.textContent = 'Please wait…';
+async function authEmail() {
+  const email=document.getElementById('f-email').value.trim(),
+        pass=document.getElementById('f-pass').value,
+        name=document.getElementById('f-name').value.trim();
+  if (!email||!pass) { showAuthErr('Please enter your email and password.'); return }
+  const btn=document.getElementById('email-btn');
+  btn.disabled=true; btn.textContent='Please wait…';
   try {
-    if (ST.authMode === 'signup') {
-      if (!name) { showAuthErr('Please enter your name.'); btn.disabled=false; _syncAuthMode(); return }
-      const cred = await fbAuth.createUserWithEmailAndPassword(email, pass);
-      await cred.user.updateProfile({ displayName: name });
-    } else {
-      await fbAuth.signInWithEmailAndPassword(email, pass);
-    }
+    if (ST.authMode==='signup') {
+      if (!name) { showAuthErr('Please enter your name.'); btn.disabled=false; _syncMode(); return }
+      const c=await fbAuth.createUserWithEmailAndPassword(email,pass);
+      await c.user.updateProfile({displayName:name});
+    } else { await fbAuth.signInWithEmailAndPassword(email,pass) }
   } catch(e) {
-    const m = {
-      'auth/email-already-in-use':  'Email already registered — sign in instead.',
-      'auth/wrong-password':        'Incorrect password.',
-      'auth/user-not-found':        'No account found — create one instead.',
-      'auth/invalid-email':         'Please enter a valid email address.',
-      'auth/weak-password':         'Password must be at least 6 characters.',
-      'auth/invalid-credential':    'Incorrect email or password.'
-    };
-    showAuthErr(m[e.code] || e.message);
-    btn.disabled = false; _syncAuthMode();
+    const m={'auth/email-already-in-use':'Email already registered.','auth/wrong-password':'Incorrect password.',
+      'auth/user-not-found':'No account found.','auth/invalid-email':'Invalid email address.',
+      'auth/weak-password':'Password must be at least 6 characters.','auth/invalid-credential':'Incorrect email or password.'};
+    showAuthErr(m[e.code]||e.message); btn.disabled=false; _syncMode();
   }
 }
-
-async function authForgotPassword() {
-  const email = document.getElementById('f-email').value.trim();
-  if (!email) { showAuthErr('Enter your email address first.'); return }
-  try { await fbAuth.sendPasswordResetEmail(email); snack('Reset email sent — check your inbox ✓') }
-  catch(e) { showAuthErr(e.message) }
+async function forgotPw() {
+  const email=document.getElementById('f-email').value.trim();
+  if (!email) { showAuthErr('Enter your email first.'); return }
+  try { await fbAuth.sendPasswordResetEmail(email); snack('Reset email sent ✓') } catch(e) { showAuthErr(e.message) }
 }
-
-async function authAsGuest() {
-  ST.isGuest = true;
-  const local = lsLoad();
-  if (local) lsMerge(local);
+async function authGuest() {
+  ST.isGuest=true;
+  const l=lsLoad(); if(l) lsMerge(l);
   await _postLogin();
 }
-
 async function signOut() {
-  closeDialog();
+  closeDlg();
   try { await fbAuth.signOut() } catch(e) {}
-  ST.user = null; ST.isGuest = false;
-  ST.data = { profile:{name:'',startDate:null}, progress:{}, settings:{theme:'system'} };
-  ST.openVids.clear();
-  show('screen-auth');
+  ST.user=null; ST.isGuest=false;
+  ST.data={profile:{name:'',startDate:null},progress:{},settings:{theme:'dark'}};
+  ST.openVids.clear(); show('s-auth');
 }
 
+/* ════════════════════════════════════════════════════
+   POST-LOGIN
+════════════════════════════════════════════════════ */
 async function _postLogin() {
-  const local = lsLoad();
-  if (local) lsMerge(local);
+  const l=lsLoad(); if(l) lsMerge(l);
   if (ST.user) await fsLoad();
   applyTheme(ST.data.settings.theme);
   _updateTopBar();
-
-  if (!ST.data.profile.name || !ST.data.profile.startDate) {
-    _startOnboarding();
-  } else {
-    ST.dayIdx = todayDayIdx();
-    _showApp();
-  }
+  if (!ST.data.profile.name||!ST.data.profile.startDate) _startOb();
+  else { ST.dayIdx=todayIdx(); _showApp() }
 }
 
-let _obStep = 1;
-
-function _startOnboarding() {
-  _obStep = 1;
-  show('screen-onboard');
-  if (ST.user?.displayName) document.getElementById('ob-name').value = ST.user.displayName.split(' ')[0];
-  document.getElementById('ob-date').value = isoToday();
-  _obDateChanged();
-  _obGoto(1);
+/* ════════════════════════════════════════════════════
+   ONBOARDING
+════════════════════════════════════════════════════ */
+let _obS=1;
+function _startOb() {
+  _obS=1; show('s-onboard');
+  if (ST.user?.displayName) document.getElementById('ob-name').value=ST.user.displayName.split(' ')[0];
+  document.getElementById('ob-date').value=isoToday();
+  _obDateUpd(); _obGo(1);
 }
-
-function _obGoto(step) {
-  _obStep = step;
-  const pct = step === 1 ? 33 : step === 2 ? 66 : 100;
-  document.getElementById('ob-progress').style.width = pct + '%';
-  document.querySelectorAll('.onboard-step').forEach((el, i) => {
-    el.classList.toggle('active', i + 1 === step);
+function _obGo(s) {
+  _obS=s;
+  [1,2,3].forEach(i=>{
+    document.getElementById(`ob-seg-${i}`).classList.toggle('done',i<=s);
+    document.getElementById(`ob-${i}`).classList.toggle('active',i===s);
   });
 }
-
-function obStep1Next() {
-  const name = document.getElementById('ob-name').value.trim();
-  if (!name) { document.getElementById('ob-name').focus(); return }
-  ST.data.profile.name = name;
-  _obGoto(2);
+function ob1Next() {
+  const n=document.getElementById('ob-name').value.trim();
+  if (!n) { document.getElementById('ob-name').focus(); return }
+  ST.data.profile.name=n; _obGo(2);
 }
-
-function obBack() { if (_obStep > 1) _obGoto(_obStep - 1) }
-
-function _obDateChanged() {
-  const val = document.getElementById('ob-date').value;
-  const txt = document.getElementById('ob-date-text');
-  const confirmBtn = document.getElementById('ob-confirm-btn');
-  if (val) {
-    const d = new Date(val + 'T00:00:00');
-    txt.textContent = d.toLocaleDateString(undefined, { weekday:'short', month:'long', day:'numeric', year:'numeric' });
-    confirmBtn.classList.remove('hidden');
-  } else {
-    txt.textContent = 'Pick a start date';
-    confirmBtn.classList.add('hidden');
-  }
+function obBack() { if(_obS>1) _obGo(_obS-1) }
+function _obDateUpd() {
+  const v=document.getElementById('ob-date').value;
+  const pill=document.getElementById('ob-pill-txt');
+  const btn=document.getElementById('ob-confirm');
+  if (v) {
+    const d=new Date(v+'T00:00:00');
+    pill.textContent=d.toLocaleDateString(undefined,{weekday:'short',month:'long',day:'numeric',year:'numeric'});
+    btn.classList.remove('hidden');
+  } else { pill.textContent='Pick your start date'; btn.classList.add('hidden') }
 }
-
-function obDateChanged() { _obDateChanged() }
-
-function obStartToday() {
-  document.getElementById('ob-date').value = isoToday();
-  _obDateChanged();
-  _obConfirm();
+function obDateChange() { _obDateUpd() }
+function obToday() {
+  document.getElementById('ob-date').value=isoToday();
+  _obDateUpd(); _obConfirm();
 }
-
-function obConfirmDate() { _obConfirm() }
-
+function obConfirm() { _obConfirm() }
 function _obConfirm() {
-  const d = document.getElementById('ob-date').value;
-  if (!d) return;
-  ST.data.profile.startDate = d;
-  _obGoto(3);
+  const d=document.getElementById('ob-date').value; if(!d) return;
+  ST.data.profile.startDate=d; _obGo(3);
 }
-
 async function obFinish() {
-  await fsSave({ profile: ST.data.profile });
-  ST.dayIdx = todayDayIdx();
-  _showApp();
+  await fsSave({profile:ST.data.profile});
+  ST.dayIdx=todayIdx(); _showApp();
 }
 
-function _showApp() {
-  show('screen-app');
-  _updateTopBar();
-  goTab('home');
-}
-
+/* ════════════════════════════════════════════════════
+   MAIN APP
+════════════════════════════════════════════════════ */
+function _showApp() { show('s-app'); _updateTopBar(); goTab('home') }
 function _updateTopBar() {
-  const name = ST.data.profile.name;
-  document.getElementById('bar-sub').textContent = name ? `Hi, ${name} 👋` : '';
-  const av = document.getElementById('top-avatar');
-  const avName = document.getElementById('top-avatar-name');
-  av.textContent = initials(name || ST.user?.displayName || '');
-  avName.textContent = (name || ST.user?.displayName || 'Me').split(' ')[0];
+  const name=ST.data.profile.name;
+  const av=document.getElementById('top-av');
+  if (ST.user?.photoURL) av.innerHTML=`<img src="${ST.user.photoURL}" alt="">`;
+  else av.textContent=initials(name||ST.user?.displayName||'');
+  document.getElementById('top-av-name').textContent=(name||ST.user?.displayName||'Me').split(' ')[0];
 }
 
-function goTab(tab) {
-  ST.tab = tab;
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.md-nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById(`tab-${tab}`).classList.add('active');
-  document.getElementById(`nav-${tab}`).classList.add('active');
-  const titles = { home:'Today\'s Workout', schedule:'Program Schedule', profile:'My Progress' };
-  document.getElementById('bar-title').textContent = titles[tab] || 'Mom.Bod.Strong';
-  _render(tab);
+/* ════════════════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════════════════ */
+function goTab(t) {
+  ST.tab=t;
+  document.querySelectorAll('.tab').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById(`tab-${t}`).classList.add('active');
+  document.getElementById(`nav-${t}`).classList.add('active');
+  ({home:renderHome,schedule:renderSchedule,profile:renderProfile}[t]||(() => {}))();
+}
+function goDay(i) {
+  ST.dayIdx=Math.max(0,Math.min(i,WD.length-1));
+  ST.openVids.clear(); goTab('home');
+  window.scrollTo(0,0);
 }
 
-function _render(tab) {
-  if (tab === 'home')     renderHome();
-  if (tab === 'schedule') renderSchedule();
-  if (tab === 'profile')  renderProfile();
-}
-
-function goDay(idx) {
-  ST.dayIdx = Math.max(0, Math.min(idx, WD.length - 1));
-  ST.openVids.clear();
-  goTab('home');
-  window.scrollTo(0, 0);
-}
-
+/* ════════════════════════════════════════════════════
+   HOME RENDER
+════════════════════════════════════════════════════ */
 function renderHome() {
-  const day     = WD[ST.dayIdx];
-  const todayI  = todayDayIdx();
-  const isToday = ST.dayIdx === todayI;
-  const pct     = dayPct(day.dayNum);
-  const weekDays= WD.filter(d => d.week === day.week);
+  const day=WD[ST.dayIdx], ti=todayIdx(), isToday=ST.dayIdx===ti;
+  const pct=dayPct(day.dayNum);
+  const weekDays=WD.filter(d=>d.week===day.week);
+  const heroImg=(day.isRest?REST_IMG:WEEK_IMG[day.week])||WEEK_IMG['Week 1'];
 
-  const chips = weekDays.map(d => {
-    const idx  = WD.indexOf(d);
-    const done = isDayDone(d.dayNum);
-    const active = idx === ST.dayIdx;
-    const cls = `day-chip${d.isRest?' is-rest':''}${done&&!d.isRest?' is-done':''}${active?' is-active':''}`;
-    const icon = d.isRest ? '🌿' : done ? 'check' : '';
+  /* Day selector chips */
+  const dots=weekDays.map(d=>{
+    const idx=WD.indexOf(d), done=isDayDone(d.dayNum), act=idx===ST.dayIdx;
+    const cls=`day-dot${d.isRest?' dd-rest':''}${done&&!d.isRest?' dd-done':''}${act?' dd-active':''}`;
     return `<div class="${cls}" onclick="goDay(${idx})">
-      <span class="day-chip-num">${d.dayNum}</span>
-      <span class="day-chip-icon">${icon}</span>
+      <span class="day-dot-n">${d.dayNum}</span>
+      <span class="day-dot-ic">${d.isRest?'🌿':done?'✓':''}</span>
     </div>`;
   }).join('');
 
-  const todayBadge = isToday
-    ? `<span class="today-badge"><span class="material-icons-round" style="font-size:12px">today</span>Today</span>` : '';
+  const sd=ST.data.profile.startDate;
+  const dateLabel=sd?new Date(sd+'T00:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric'}):'Set date';
 
-  const allDone = isDayDone(day.dayNum);
-  const markAllBtn = !day.isRest ? `<button class="md-btn md-btn-tonal md-ripple" onclick="markAll(${day.dayNum}, ${allDone ? 'false' : 'true'})">
-    <span class="material-icons-round">${allDone ? 'remove_done' : 'done_all'}</span>
-    ${allDone ? 'Undo' : 'Mark All Done'}
-  </button>` : '';
+  /* Hero */
+  let heroMeta='';
+  if (!day.isRest) {
+    heroMeta=`<div class="hero-meta">
+      <span class="hero-badge"><span class="material-icons-round">fitness_center</span>${day.exercises.length} exercises</span>
+      ${isToday?'<span class="hero-today">TODAY</span>':''}
+    </div>`;
+  } else if (isToday) {
+    heroMeta=`<div class="hero-meta"><span class="hero-today">TODAY</span></div>`;
+  }
 
-  const prevDis = ST.dayIdx === 0 ? 'disabled style="opacity:.3"' : '';
-  const nextDis = ST.dayIdx === WD.length - 1 ? 'disabled style="opacity:.3"' : '';
-
-  let body = '';
+  /* Body */
+  let body='';
   if (day.isRest) {
-    body = `<div class="rest-day-card">
-      <span class="rest-day-emoji">🌿</span>
-      <div class="rest-day-title">Rest & Recovery</div>
-      ${day.restTip ? `<p class="rest-day-tip">${day.restTip}</p>` : ''}
+    body=`<div class="rest-hero">
+      <img src="${heroImg}" alt="Rest day" style="width:100%;height:220px;object-fit:cover">
+      <div class="rest-hero-overlay">
+        <div class="rest-hero-title">Rest &amp; Recovery</div>
+        ${day.restTip?`<p class="rest-hero-tip">${day.restTip}</p>`:''}
+      </div>
     </div>`;
   } else {
-    const warmup = wkNum(day.week) >= 3 ? `<div class="warmup-strip">
+    const warmup = wkN(day.week)>=3 ? `<div class="warmup-bar">
       <span class="material-icons-round">local_fire_department</span>
-      <span>Remember: <a href="${WARMUP_URL}" target="_blank">Warm Up</a> &amp;
-        <a href="${COOLDOWN_URL}" target="_blank">Cool Down</a></span>
+      <span>Remember to <a href="${WARMUP_URL}" target="_blank">warm up</a> &amp; <a href="${COOLDOWN_URL}" target="_blank">cool down</a></span>
     </div>` : '';
 
-    const cards = day.exercises.map((ex, i) => {
-      const key   = `d${day.dayNum}e${i}`;
-      const done  = ST.data.progress[key];
-      const vOpen = ST.openVids.has(key);
-      const id    = ytId(ex.url);
-      return `<div class="ex-card${done?' done':''}" id="ec-${key}">
-        <div class="ex-card-header" onclick="toggleVid('${key}')">
-          <div class="ex-card-num" id="en-${key}">
-            ${done ? '<span class="material-icons-round">check</span>' : i + 1}
+    const allDone=isDayDone(day.dayNum);
+    const cards=day.exercises.map((ex,i)=>{
+      const key=`d${day.dayNum}e${i}`, done=ST.data.progress[key];
+      const vOpen=ST.openVids.has(key), id=ytId(ex.url);
+      const thumb=exThumb(ex.name);
+      return `<div class="ex-row${done?' done':''}" id="ec-${key}">
+        <div class="ex-row-main" onclick="toggleVid('${key}')">
+          <div class="ex-thumb-wrap">
+            <img src="${thumb}" alt="${ex.name}" loading="lazy">
+            <div class="ex-num" id="en-${key}">${done?'<span class="material-icons-round" style="font-size:12px">check</span>':i+1}</div>
           </div>
-          <div class="ex-card-info">
-            <div class="ex-card-name">${ex.name}</div>
-            <div class="ex-card-sets">${ex.setsReps}</div>
+          <div class="ex-body">
+            <div class="ex-name">${ex.name}</div>
+            <div class="ex-sets">${ex.setsReps}</div>
           </div>
-          <div class="ex-card-actions" onclick="event.stopPropagation()">
-            ${ex.url ? `<div class="video-chip" onclick="toggleVid('${key}')" id="vc-${key}">
-              <span class="material-icons-round">${vOpen ? 'expand_less' : 'play_circle'}</span>
-            </div>` : ''}
-            <div class="check-fab${done?' checked':''}" onclick="toggleEx(${day.dayNum},${i})" id="cf-${key}">
-              <span class="material-icons-round">${done ? 'check' : 'radio_button_unchecked'}</span>
+          <div class="ex-actions" onclick="event.stopPropagation()">
+            ${ex.url?`<div class="vid-btn${vOpen?' open':''}" onclick="toggleVid('${key}')" id="vc-${key}">
+              <span class="material-icons-round">${vOpen?'expand_less':'play_arrow'}</span>
+            </div>`:''}
+            <div class="chk${done?' on':''}" onclick="toggleEx(${day.dayNum},${i})" id="cf-${key}">
+              <span class="material-icons-round">${done?'check':'add'}</span>
             </div>
           </div>
         </div>
-        <div class="video-panel${vOpen?' open':''}" id="vp-${key}">
-          ${ex.url && id
-            ? `<div class="video-aspect"><iframe src="${vOpen ? `https://www.youtube.com/embed/${id}?rel=0` : ''}"
-                data-src="https://www.youtube.com/embed/${id}?rel=0" allowfullscreen></iframe></div>`
-            : ''}
+        <div class="vid-panel${vOpen?' open':''}" id="vp-${key}">
+          ${ex.url&&id?`<div class="vid-ratio"><iframe
+            src="${vOpen?`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`:''}"
+            data-src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1"
+            allowfullscreen loading="lazy"></iframe></div>`:
+          ex.url?`<div class="no-vid"><a href="${ex.url}" target="_blank">Watch on YouTube →</a></div>`:
+          `<div class="no-vid">No video available</div>`}
         </div>
       </div>`;
     }).join('');
 
-    body = `
-      <div class="progress-row">
-        <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:${pct}%"></div></div>
-        <span class="progress-pct" id="prog-pct">${pct}%</span>
+    body=`<div class="workout-section">
+      <div class="section-row">
+        <span class="section-label">Exercises</span>
+        <span class="section-pct" id="prog-pct">${pct}%</span>
       </div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:${pct}%"></div></div>
       ${warmup}
-      <div class="exercises-list">${cards}</div>`;
+      <div class="ex-list">${cards}</div>
+    </div>
+    <div class="day-actions">
+      <button class="btn ${allDone?'btn-ghost':'btn-primary'} btn-full rpl"
+        onclick="markAll(${day.dayNum},${allDone?'false':'true'})">
+        <span class="material-icons-round">${allDone?'remove_done':'done_all'}</span>
+        ${allDone?'Undo All':'Mark All Done'}
+      </button>
+    </div>`;
   }
 
-  document.getElementById('tab-home').innerHTML = `
-    <div class="home-content">
-      <div class="week-label-row">
-        <span class="week-label">${day.week}</span>
+  const pDis=ST.dayIdx===0?'disabled style="opacity:.3"':'';
+  const nDis=ST.dayIdx===WD.length-1?'disabled style="opacity:.3"':'';
+
+  document.getElementById('tab-home').innerHTML=`
+    <div class="hero">
+      <img class="hero-img" src="${heroImg}" alt="${day.week}" loading="eager">
+      <div class="hero-gradient"></div>
+      <div class="hero-body">
+        <div class="hero-week">${day.week}  ·  ${day.isRest?'Rest Day':'Workout'}</div>
+        <div class="hero-day">Day ${day.dayNum}</div>
+        ${heroMeta}
       </div>
-      <div class="chip-scroll">${chips}</div>
-      <div class="day-hero">
-        <div class="day-hero-text">
-          <div class="day-hero-headline">
-            <em>Day ${day.dayNum}</em>${todayBadge}
-          </div>
-          <div class="day-hero-sub">${day.isRest ? '🌿 Rest Day' : `${day.exercises.length} exercises`}</div>
-        </div>
-        ${markAllBtn}
+      <div class="hero-date-btn" onclick="dlgChangeDate()">
+        <span class="material-icons-round">edit_calendar</span>
+        ${dateLabel}
       </div>
-      ${body}
-      <div class="day-nav-row">
-        <button class="md-btn md-btn-outlined" onclick="goDay(${ST.dayIdx - 1})" ${prevDis}>Prev</button>
-        <button class="md-btn md-btn-outlined" onclick="goDay(${ST.dayIdx + 1})" ${nextDis}>Next</button>
-      </div>
+    </div>
+    <div class="day-strip-wrap">
+      <div class="day-strip">${dots}</div>
+    </div>
+    ${body}
+    <div class="nav-row">
+      <button class="btn btn-ghost rpl" onclick="goDay(${ST.dayIdx-1})" ${pDis}>
+        <span class="material-icons-round">chevron_left</span>
+      </button>
+      <button class="btn btn-subtle rpl" onclick="goDay(${ti})">
+        <span class="material-icons-round">today</span> Today
+      </button>
+      <button class="btn btn-ghost rpl" onclick="goDay(${ST.dayIdx+1})" ${nDis}>
+        <span class="material-icons-round">chevron_right</span>
+      </button>
     </div>`;
 }
 
+/* ─── Video toggle ─── */
 function toggleVid(key) {
-  const panel = document.getElementById(`vp-${key}`);
+  const panel=document.getElementById(`vp-${key}`), chip=document.getElementById(`vc-${key}`);
   if (!panel) return;
-  const open = ST.openVids.has(key);
+  const open=ST.openVids.has(key);
   if (open) {
-    ST.openVids.delete(key);
-    panel.classList.remove('open');
-    const iframe = panel.querySelector('iframe');
-    if (iframe) iframe.src = '';
+    ST.openVids.delete(key); panel.classList.remove('open');
+    if (chip) { chip.classList.remove('open'); chip.querySelector('.material-icons-round').textContent='play_arrow' }
+    const f=panel.querySelector('iframe'); if(f) f.src='';
   } else {
-    ST.openVids.add(key);
-    panel.classList.add('open');
-    const iframe = panel.querySelector('iframe');
-    if (iframe) iframe.src = iframe.dataset.src;
+    ST.openVids.add(key); panel.classList.add('open');
+    if (chip) { chip.classList.add('open'); chip.querySelector('.material-icons-round').textContent='expand_less' }
+    const f=panel.querySelector('iframe'); if(f&&f.dataset.src) f.src=f.dataset.src;
   }
 }
 
+/* ─── Toggle exercise ─── */
 async function toggleEx(dayNum, exIdx) {
   await fsToggle(dayNum, exIdx);
-  renderHome();
+  const key=`d${dayNum}e${exIdx}`, done=ST.data.progress[key];
+  const card=document.getElementById(`ec-${key}`), cf=document.getElementById(`cf-${key}`), en=document.getElementById(`en-${key}`);
+  if (card) card.classList.toggle('done',done);
+  if (cf) { cf.classList.toggle('on',done); cf.querySelector('.material-icons-round').textContent=done?'check':'add' }
+  if (en) en.innerHTML=done?'<span class="material-icons-round" style="font-size:12px">check</span>':String(exIdx+1);
+  const pct=dayPct(dayNum);
+  const fill=document.getElementById('prog-fill'), pctEl=document.getElementById('prog-pct');
+  if (fill) fill.style.width=pct+'%';
+  if (pctEl) pctEl.textContent=pct+'%';
+  _refreshDots(dayNum);
+  if (done) snack('Exercise done! 💪');
 }
-
+function _refreshDots(dayNum) {
+  const d=WD.find(x=>x.dayNum===dayNum); if(!d) return;
+  document.querySelectorAll('.day-dot').forEach((chip,ci)=>{
+    const wk=WD.filter(x=>x.week===d.week), wd=wk[ci]; if(!wd) return;
+    const done=isDayDone(wd.dayNum), act=WD.indexOf(wd)===ST.dayIdx;
+    chip.className=`day-dot${wd.isRest?' dd-rest':''}${done&&!wd.isRest?' dd-done':''}${act?' dd-active':''}`;
+  });
+}
 async function markAll(dayNum, val) {
-  const d = WD.find(x => x.dayNum === dayNum);
-  if (!d) return;
-  d.exercises.forEach((_, i) => { ST.data.progress[`d${dayNum}e${i}`] = val });
-  await fsSave({ progress: ST.data.progress });
-  renderHome();
+  const d=WD.find(x=>x.dayNum===dayNum); if(!d) return;
+  d.exercises.forEach((_,i)=>{ ST.data.progress[`d${dayNum}e${i}`]=val });
+  await fsSave({progress:ST.data.progress});
+  renderHome(); snack(val?'🎉 All exercises done!':'Progress cleared');
 }
 
+/* ════════════════════════════════════════════════════
+   SCHEDULE RENDER
+════════════════════════════════════════════════════ */
 function renderSchedule() {
-  const weeks = [...new Set(WD.map(d => d.week))];
-  let html = '<div class="schedule-content">';
-  weeks.forEach(wk => {
-    const days = WD.filter(d => d.week === wk);
-    html += `<div class="prog-week-header">${wk}</div><div class="prog-grid">`;
-    days.forEach(d => {
-      const idx  = WD.indexOf(d);
-      const done = isDayDone(d.dayNum);
-      const act  = idx === ST.dayIdx;
-      const cls  = `prog-cell${d.isRest?' pc-rest':''}${done&&!d.isRest?' pc-done':''}${act?' pc-active':''}`;
-      html += `<div class="${cls}" onclick="goDay(${idx})">
-        <span class="prog-cell-num">${d.dayNum}</span>
+  const weeks=[...new Set(WD.map(d=>d.week))];
+  let html='<div class="schedule-pad">';
+  weeks.forEach(wk=>{
+    const days=WD.filter(d=>d.week===wk);
+    html+=`<div class="sched-week-hdr">${wk}</div><div class="sched-grid">`;
+    days.forEach(d=>{
+      const idx=WD.indexOf(d), done=isDayDone(d.dayNum), act=idx===ST.dayIdx;
+      const cls=`sched-cell${d.isRest?' sc-rest':''}${done&&!d.isRest?' sc-done':''}${act?' sc-active':''}`;
+      html+=`<div class="${cls}" onclick="goDay(${idx})">
+        <span class="sc-n">${d.dayNum}</span>
+        <span class="sc-ic">${d.isRest?'🌿':done?'✓':''}</span>
       </div>`;
     });
-    html += '</div>';
+    for(let i=days.length;i<7;i++) html+='<div class="sched-cell" style="opacity:0;pointer-events:none"></div>';
+    html+='</div>';
   });
-  html += '</div>';
-  document.getElementById('tab-schedule').innerHTML = html;
+  html+='</div>';
+  document.getElementById('tab-schedule').innerHTML=html;
 }
 
+/* ════════════════════════════════════════════════════
+   PROFILE RENDER
+════════════════════════════════════════════════════ */
 function renderProfile() {
-  const { profile } = ST.data;
-  const workDays = WD.filter(d => !d.isRest);
-  const compDays = workDays.filter(d => isDayDone(d.dayNum)).length;
-  const pct      = Math.round((compDays / workDays.length) * 100);
+  const {profile,progress}=ST.data;
+  const workDays=WD.filter(d=>!d.isRest);
+  const compDays=workDays.filter(d=>isDayDone(d.dayNum)).length;
+  const compEx=Object.values(progress).filter(Boolean).length;
+  const pct=Math.round(compDays/workDays.length*100);
+  const streak=_streak();
 
-  document.getElementById('tab-profile').innerHTML = `
-    <div class="profile-content">
-      <div class="profile-hero">
-        <div class="profile-avatar">${initials(profile.name)}</div>
-        <div class="profile-name">${profile.name || 'User'}</div>
-        <div class="profile-email">${ST.user?.email || 'Guest'}</div>
+  const R=36, C=2*Math.PI*R;
+  const ring=`<svg width="88" height="88" viewBox="0 0 88 88">
+    <circle cx="44" cy="44" r="${R}" fill="none" stroke="var(--bg-3)" stroke-width="7"/>
+    <circle cx="44" cy="44" r="${R}" fill="none" stroke="var(--accent)" stroke-width="7"
+      stroke-dasharray="${(pct/100)*C} ${C}" stroke-dashoffset="${C/4}" stroke-linecap="round"/>
+    <text x="44" y="49" text-anchor="middle" font-family="'Barlow Condensed',sans-serif"
+      font-weight="900" font-size="17" fill="var(--accent)">${pct}%</text>
+  </svg>`;
+
+  const avHTML=ST.user?.photoURL?`<img src="${ST.user.photoURL}" alt="">`:initials(profile.name);
+  const syncChip=ST.isGuest
+    ?'<div class="sync-chip offline"><span class="material-icons-round">cloud_off</span> Guest — not synced</div>'
+    :'<div class="sync-chip online"><span class="material-icons-round">cloud_done</span> Synced with Firestore</div>';
+  const dateLabel=profile.startDate
+    ?new Date(profile.startDate+'T00:00:00').toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})
+    :'No start date set';
+
+  const themeOpts=[
+    {k:'dark',ic:'dark_mode',l:'Dark'},
+    {k:'light',ic:'light_mode',l:'Light'},
+    {k:'system',ic:'contrast',l:'Auto'}
+  ].map(t=>`<div class="theme-opt${ST.data.settings.theme===t.k?' on':''}" onclick="setTheme('${t.k}')">
+    <span class="material-icons-round">${t.ic}</span>${t.l}
+  </div>`).join('');
+
+  document.getElementById('tab-profile').innerHTML=`
+    <img class="profile-hero-img" src="${PROFILE_BG}" alt="Fitness" loading="lazy">
+    <div class="profile-hero-content">
+      <div class="profile-av" id="pav">${avHTML}</div>
+      <div class="profile-name-block">
+        <div class="profile-name">${profile.name||'Fitness Warrior'}</div>
+        <div class="profile-email">${ST.user?(ST.user.email||'Signed in with Google'):'Guest mode'}</div>
       </div>
-
-      <div class="ring-card">
+      <div class="profile-date-btn" onclick="dlgChangeDate()">
+        <span class="material-icons-round">edit_calendar</span>
+        ${dateLabel}
+        <span class="material-icons-round" style="font-size:14px;opacity:.5">edit</span>
+      </div>
+    </div>
+    <div class="profile-pad">
+      ${syncChip}
+      <div class="ring-box">
+        ${ring}
         <div class="ring-info">
-          <h3>Progress</h3>
-          <p>${compDays} of ${workDays.length} workout days done (${pct}%)</p>
+          <h3>Program Progress</h3>
+          <p>${compDays} of ${workDays.length} workout days done<br>${compEx} exercises checked off</p>
         </div>
       </div>
-
-      <div class="settings-list">
-        <div class="settings-section">Account</div>
-        <div class="setting-row danger" onclick="dlgSignOut()">
-          <span class="material-icons-round setting-row-icon">logout</span>
-          <div class="setting-row-body">
-            <div class="setting-row-title">Sign Out</div>
-          </div>
+      <div class="stats-strip">
+        <div class="stat-box"><div class="stat-num">${compDays}</div><div class="stat-lbl">Days Done</div></div>
+        <div class="stat-box"><div class="stat-num">${streak}</div><div class="stat-lbl">Streak 🔥</div></div>
+        <div class="stat-box"><div class="stat-num">${compEx}</div><div class="stat-lbl">Exercises</div></div>
+      </div>
+      <div class="settings-hdr">Appearance</div>
+      <div style="background:var(--bg-1);border-radius:14px;padding:1rem;border:1px solid var(--border);margin-bottom:.375rem">
+        <div style="font-size:.85rem;font-weight:500;color:var(--text-2);margin-bottom:.75rem">Theme</div>
+        <div class="theme-row">${themeOpts}</div>
+      </div>
+      <div class="settings-hdr">Program</div>
+      <div class="settings-grp">
+        <div class="setting-row" onclick="dlgChangeDate()">
+          <span class="material-icons-round s-icon">edit_calendar</span>
+          <div class="s-body"><div class="s-title">Change Start Date</div><div class="s-sub">${profile.startDate||'Not set'}</div></div>
+          <span class="material-icons-round s-trail">chevron_right</span>
         </div>
+        <div class="setting-row" onclick="manualSync()">
+          <span class="material-icons-round s-icon">sync</span>
+          <div class="s-body"><div class="s-title">Sync Progress</div><div class="s-sub">Pull latest from cloud</div></div>
+          <span class="material-icons-round s-trail">chevron_right</span>
+        </div>
+      </div>
+      <div class="settings-hdr">Account</div>
+      <div class="settings-grp">
+        ${ST.isGuest?`<div class="setting-row" onclick="show('s-auth')">
+          <span class="material-icons-round s-icon">login</span>
+          <div class="s-body"><div class="s-title">Sign In</div><div class="s-sub">Sync your progress to the cloud</div></div>
+          <span class="material-icons-round s-trail">chevron_right</span>
+        </div>`:''}
+        <div class="setting-row danger" onclick="dlgClear()">
+          <span class="material-icons-round s-icon">delete_sweep</span>
+          <div class="s-body"><div class="s-title">Clear All Progress</div><div class="s-sub">Cannot be undone</div></div>
+        </div>
+        ${!ST.isGuest?`<div class="setting-row danger" onclick="dlgSignOut()">
+          <span class="material-icons-round s-icon">logout</span>
+          <div class="s-body"><div class="s-title">Sign Out</div><div class="s-sub">${ST.user?.email||''}</div></div>
+        </div>`:''}
       </div>
     </div>`;
 }
-
-function dlg(title, body, actions) {
-  document.getElementById('dlg-title').textContent = title;
-  document.getElementById('dlg-body').innerHTML = body;
-  document.getElementById('dlg-actions').innerHTML = actions;
-  document.getElementById('dialog-scrim').classList.add('open');
-}
-function closeDialog() { document.getElementById('dialog-scrim').classList.remove('open') }
-
-function dlgSignOut() {
-  dlg('Sign out?', 'Are you sure?',
-    `<button class="md-btn md-btn-text" onclick="closeDialog()">Cancel</button>
-     <button class="md-btn md-btn-error" onclick="signOut()">Sign Out</button>`);
-}
-
-function applyTheme(pref) {
-  const dark = pref === 'dark' || (pref !== 'light' && window.matchMedia('(prefers-color-scheme:dark)').matches);
-  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-}
-
-function cycleTheme() {
-  const order = ['light','dark','system'];
-  const cur = ST.data.settings.theme || 'system';
-  const next = order[(order.indexOf(cur) + 1) % order.length];
-  ST.data.settings.theme = next;
-  applyTheme(next);
-}
-
-async function manualSync() {
-  if (!ST.user) return;
-  ST.syncing = true;
-  document.getElementById('sync-btn').classList.add('syncing');
-  try { await fsLoad(); _render(ST.tab); snack('Synced ✓'); }
-  finally {
-    ST.syncing = false;
-    document.getElementById('sync-btn').classList.remove('syncing');
+function _streak() {
+  let s=0;
+  for(let i=todayIdx();i>=0;i--) {
+    const d=WD[i]; if(d.isRest) continue;
+    if(isDayDone(d.dayNum)) s++; else break;
   }
+  return s;
 }
 
-function snack(msg) {
-  const el = document.getElementById('snackbar');
-  document.getElementById('snack-msg').textContent = msg;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 3000);
+/* ════════════════════════════════════════════════════
+   DIALOGS
+════════════════════════════════════════════════════ */
+function dlg(title,body,actions) {
+  document.getElementById('dlg-title').textContent=title;
+  document.getElementById('dlg-body').innerHTML=body;
+  document.getElementById('dlg-actions').innerHTML=actions;
+  document.getElementById('dlg-scrim').classList.add('open');
+}
+function closeDlg() { document.getElementById('dlg-scrim').classList.remove('open') }
+function dlgSignOut() {
+  dlg('Sign Out?','Your progress is saved to the cloud and will be here when you return.',
+    `<button class="btn btn-text rpl" onclick="closeDlg()">Cancel</button>
+     <button class="btn btn-danger rpl" onclick="signOut()"><span class="material-icons-round">logout</span> Sign Out</button>`);
+}
+function dlgClear() {
+  dlg('Clear All Progress?','This permanently deletes all your workout completions. This action cannot be undone.',
+    `<button class="btn btn-text rpl" onclick="closeDlg()">Cancel</button>
+     <button class="btn btn-danger rpl" onclick="doClear()"><span class="material-icons-round">delete</span> Clear All</button>`);
+}
+async function doClear() {
+  ST.data.progress={};
+  await fsSave({progress:{}});
+  closeDlg(); ({home:renderHome,schedule:renderSchedule,profile:renderProfile}[ST.tab]||(() =>{}))();
+  snack('Progress cleared');
 }
 
+function dlgChangeDate() {
+  const cur=ST.data.profile.startDate||isoToday();
+  const d=new Date(cur+'T00:00:00');
+  const fmt=d.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const diff=daysBetween(cur,isoToday());
+  const pDay=Math.max(1,Math.min(diff+1,WD.length));
+  const sub=diff===0?'Today is Day 1 of your program':diff>0?`Today would be Day ${pDay}`:
+    `This is ${Math.abs(diff)} day${Math.abs(diff)===1?'':'s'} in the future`;
+
+  dlg('Change Start Date',
+    `<div class="date-prev">
+      <span class="material-icons-round">event</span>
+      <div><div class="date-prev-main" id="dprev-main">${fmt}</div><div class="date-prev-sub" id="dprev-sub">${sub}</div></div>
+    </div>
+    <div class="date-quick">
+      <button class="btn btn-primary rpl" onclick="dlgDateToday()" style="font-size:.82rem;height:36px">
+        <span class="material-icons-round">today</span> Start Today
+      </button>
+      <button class="btn btn-ghost rpl" onclick="dlgDateShift(-7)" style="font-size:.82rem;height:36px">
+        <span class="material-icons-round">remove</span> 1 week earlier
+      </button>
+      <button class="btn btn-ghost rpl" onclick="dlgDateShift(7)" style="font-size:.82rem;height:36px">
+        <span class="material-icons-round">add</span> 1 week later
+      </button>
+    </div>
+    <div class="field">
+      <input class="field-input" type="date" id="dlg-date" value="${cur}" onchange="dlgDateRefresh(this.value)">
+      <label class="field-label" style="transform:translateY(-.6rem) scale(.72);color:var(--accent)">Program start date</label>
+    </div>
+    <div class="date-hint">
+      <span class="material-icons-round">info</span>
+      Changing the start date only affects which day is shown as "today". Your completed exercises are never removed.
+    </div>`,
+    `<button class="btn btn-text rpl" onclick="closeDlg()">Cancel</button>
+     <button class="btn btn-primary rpl" onclick="doChangeDate()"><span class="material-icons-round">check</span> Save</button>`);
+}
+function dlgDateShift(n) {
+  const inp=document.getElementById('dlg-date'); if(!inp) return;
+  const d=new Date((inp.value||isoToday())+'T00:00:00'); d.setDate(d.getDate()+n);
+  inp.value=d.toISOString().slice(0,10); dlgDateRefresh(inp.value);
+}
+function dlgDateToday() {
+  const inp=document.getElementById('dlg-date'); if(inp) { inp.value=isoToday(); dlgDateRefresh(inp.value) }
+}
+function dlgDateRefresh(v) {
+  if(!v) return;
+  const d=new Date(v+'T00:00:00');
+  const fmt=d.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const diff=daysBetween(v,isoToday()), pDay=Math.max(1,Math.min(diff+1,WD.length));
+  const sub=diff===0?'Today is Day 1 of your program':diff>0?`Today would be Day ${pDay}`:
+    `This is ${Math.abs(diff)} day${Math.abs(diff)===1?'':'s'} in the future`;
+  const m=document.getElementById('dprev-main'), s=document.getElementById('dprev-sub');
+  if(m) m.textContent=fmt; if(s) s.textContent=sub;
+}
+async function doChangeDate() {
+  const d=document.getElementById('dlg-date')?.value; if(!d) return;
+  ST.data.profile.startDate=d;
+  await fsSave({profile:ST.data.profile});
+  ST.dayIdx=todayIdx(); closeDlg();
+  ({home:renderHome,schedule:renderSchedule,profile:renderProfile}[ST.tab]||(() =>{}))();
+  snack('Start date updated ✓');
+}
+
+/* ════════════════════════════════════════════════════
+   THEME
+════════════════════════════════════════════════════ */
+function applyTheme(p) {
+  const dark=p==='dark'||(p!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  document.getElementById('theme-icon').textContent=dark?'dark_mode':'light_mode';
+}
+function setTheme(t) { ST.data.settings.theme=t; fsSave({settings:ST.data.settings}); applyTheme(t); if(ST.tab==='profile') renderProfile() }
+function cycleTheme() { const o=['dark','light','system'],c=ST.data.settings.theme||'dark'; setTheme(o[(o.indexOf(c)+1)%o.length]) }
+
+/* ════════════════════════════════════════════════════
+   SYNC
+════════════════════════════════════════════════════ */
+async function manualSync() {
+  if (!ST.user) { snack('Sign in to sync progress'); return }
+  if (ST.syncing) return;
+  ST.syncing=true; document.getElementById('sync-btn').classList.add('syncing');
+  try { await fsLoad(); ({home:renderHome,schedule:renderSchedule,profile:renderProfile}[ST.tab]||(() =>{}))(); snack('Progress synced ✓') }
+  catch(e) { snack('Sync failed — check connection') }
+  finally { ST.syncing=false; document.getElementById('sync-btn').classList.remove('syncing') }
+}
+
+/* ════════════════════════════════════════════════════
+   SNACKBAR
+════════════════════════════════════════════════════ */
+let _sT;
+function snack(msg, act, actFn) {
+  clearTimeout(_sT);
+  const el=document.getElementById('snackbar');
+  document.getElementById('snack-msg').textContent=msg;
+  const a=document.getElementById('snack-act');
+  if(act&&actFn){a.textContent=act;a.onclick=actFn;a.classList.remove('hidden')} else a.classList.add('hidden');
+  el.classList.add('show'); _sT=setTimeout(()=>el.classList.remove('show'),3200);
+}
+
+/* ════════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════════ */
 function init() {
-  const savedTheme = (() => {
-    try { return JSON.parse(localStorage.getItem(LS))?.settings?.theme || 'system' }
-    catch(e) { return 'system' }
-  })();
-  applyTheme(savedTheme);
+  // Apply saved theme immediately (no flash)
+  const saved=(()=>{ try{return JSON.parse(localStorage.getItem(LS)||'null')?.settings?.theme||'dark'}catch(e){return 'dark'} })();
+  applyTheme(saved);
+
+  window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',()=>{
+    if((ST.data.settings.theme||'dark')==='system') applyTheme('system');
+  });
+  window.addEventListener('online',()=>{ snack('Back online — syncing…'); if(ST.user) manualSync() });
+  window.addEventListener('offline',()=>snack('Offline — progress saved locally'));
 
   if (fbAuth) {
-    fbAuth.onAuthStateChanged(async user => {
-      ST.user = user;
+    fbAuth.onAuthStateChanged(async user=>{
+      ST.user=user;
       if (user) await _postLogin();
-      else if (!ST.isGuest) show('screen-auth');
+      else if (!ST.isGuest) show('s-auth');
     });
-  } else {
-    show('screen-auth');
-  }
+  } else { show('s-auth') }
 }
 
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
-
