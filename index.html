@@ -192,13 +192,7 @@ img{display:block;object-fit:cover}
 .btn-full{width:100%}
 .btn-lg{height:56px;font-size:1.1rem}
 .btn .material-icons-round{font-size:18px}
-.btn-google{
-  background:#FFF;color:#1F1F1F;border:1.5px solid #DADCE0;
-  font-family:'Barlow Condensed',sans-serif;
-}
-.btn-google:hover{box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.btn-google::after{background:#000}
-.google-icon{width:20px;height:20px;flex-shrink:0}
+.google-icon{display:none}
 
 /* ─── Text fields ─── */
 .field{position:relative;margin:.25rem 0}
@@ -699,7 +693,7 @@ html[data-theme="light"] .rest-card{
 /* Profile header — no image, accent band */
 .profile-header{
   background:linear-gradient(145deg,#1a0a0e 0%,#110005 60%,#0d0d0d 100%);
-  padding:2.5rem 1.25rem 4rem;
+  padding:2rem 1.25rem 1.5rem;
   position:relative;overflow:hidden;
 }
 html[data-theme="light"] .profile-header{
@@ -711,7 +705,7 @@ html[data-theme="light"] .profile-header{
 }
 .profile-header-inner{position:relative;z-index:1}
 .profile-hero-content{
-  padding:0 1.25rem;margin-top:-3rem;
+  padding:1rem 1.25rem 0;
   display:flex;flex-direction:column;align-items:flex-start;gap:.625rem;
 }
 .profile-av{
@@ -720,7 +714,7 @@ html[data-theme="light"] .profile-header{
   font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.75rem;
   display:flex;align-items:center;justify-content:center;
   border:3px solid var(--bg);
-  margin-top:-3rem;
+  flex-shrink:0;
 }
 .profile-av img{width:100%;height:100%}
 .profile-name-block{}
@@ -934,20 +928,8 @@ html[data-theme="light"] .profile-header{
   <div class="auth-sheet">
     <div class="auth-sheet-label">Sign in to sync</div>
 
-    <button class="btn btn-google btn-full rpl" onclick="authGoogle()">
-      <svg class="google-icon" viewBox="0 0 48 48">
-        <path fill="#EA4335" d="M24 9.5c3.5 0 6.5 1.2 8.9 3.2l6.6-6.6C35.3 2.5 30 0 24 0 14.7 0 6.8 5.4 2.9 13.3l7.7 6C12.5 13 17.8 9.5 24 9.5z"/>
-        <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.8 7.2l7.6 5.9c4.4-4.1 7-10.1 7-17.1z"/>
-        <path fill="#FBBC05" d="M10.6 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.7-4.7l-7.7-6A23.9 23.9 0 0 0 0 24c0 3.9.9 7.6 2.5 10.9l8.1-6.2z"/>
-        <path fill="#34A853" d="M24 48c6 0 11.1-2 14.8-5.4l-7.6-5.9c-2 1.4-4.6 2.2-7.2 2.2-6.2 0-11.5-4.2-13.4-9.9l-8.1 6.2C6.8 42.6 14.7 48 24 48z"/>
-      </svg>
-      Continue with Google
-    </button>
-
-    <div class="divider">or</div>
-
-    <!-- Email form -->
-    <div id="email-form" class="hidden">
+    <!-- Email form — shown by default, no Google option -->
+    <div id="email-form">
       <div class="field">
         <input class="field-input" type="email" id="f-email" placeholder=" " autocomplete="email">
         <label class="field-label">Email address</label>
@@ -970,16 +952,10 @@ html[data-theme="light"] .profile-header{
           <button class="btn btn-text rpl" id="mode-btn" onclick="toggleMode()">Create account</button>
           <button class="btn btn-text rpl" onclick="forgotPw()">Forgot password?</button>
         </div>
-        <button class="btn btn-ghost btn-full rpl" onclick="showEmailForm(false)">
-          <span class="material-icons-round">arrow_back</span> Back
-        </button>
       </div>
     </div>
 
     <div id="auth-default">
-      <button class="btn btn-ghost btn-full rpl" onclick="showEmailForm(true)">
-        <span class="material-icons-round">mail</span> Continue with Email
-      </button>
       <button class="btn btn-text btn-full rpl" style="color:var(--text-3);margin-top:.25rem" onclick="authGuest()">
         Continue as Guest
       </button>
@@ -1272,12 +1248,7 @@ function show(id) {
 /* ════════════════════════════════════════════════════
    AUTH
 ════════════════════════════════════════════════════ */
-function showEmailForm(v) {
-  document.getElementById('email-form').classList.toggle('hidden',!v);
-  document.getElementById('auth-default').classList.toggle('hidden',v);
-  document.getElementById('auth-err').classList.add('hidden');
-  if (!v) { ST.authMode='signin'; _syncMode() }
-}
+function showEmailForm(_v) {} // email form is always visible
 function togglePassVis() {
   const i=document.getElementById('f-pass');
   const ic=i.nextElementSibling.nextElementSibling.querySelector('.material-icons-round');
@@ -1292,10 +1263,6 @@ function _syncMode() {
   document.getElementById('f-name-wrap').classList.toggle('hidden',!s);
 }
 function showAuthErr(m) { const e=document.getElementById('auth-err'); e.textContent=m; e.classList.remove('hidden') }
-async function authGoogle() {
-  try { await fbAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()) }
-  catch(e) { showAuthErr(e.code==='auth/popup-blocked'?'Pop-up blocked — please allow pop-ups for this site.':e.message) }
-}
 async function authEmail() {
   const email=document.getElementById('f-email').value.trim(),
         pass=document.getElementById('f-pass').value,
@@ -1671,7 +1638,7 @@ function renderProfile() {
       <div class="profile-av" id="pav">${avHTML}</div>
       <div class="profile-name-block">
         <div class="profile-name">${profile.name||'Fitness Warrior'}</div>
-        <div class="profile-email">${ST.user?(ST.user.email||'Signed in with Google'):'Guest mode'}</div>
+        <div class="profile-email">${ST.user?(ST.user.email||'Signed in'):'Guest mode'}</div>
       </div>
       <div class="profile-date-btn" onclick="dlgChangeDate()">
         <span class="material-icons-round">edit_calendar</span>
